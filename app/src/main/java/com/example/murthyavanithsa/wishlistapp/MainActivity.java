@@ -3,6 +3,7 @@ package com.example.murthyavanithsa.wishlistapp;
 import android.app.ActionBar;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Looper;
@@ -48,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
     EditText editemailtext;
     EditText editpasswordtext;
     String LOG_LABEL="MainActivity";
+    String token;
+    SharedPreferences wishlistappsettings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -56,55 +60,51 @@ public class MainActivity extends AppCompatActivity {
         editemailtext = (EditText) findViewById(R.id.emailid);
         editpasswordtext = (EditText) findViewById(R.id.password);
 
-        Button button = (Button) findViewById(R.id.submitbutton);
+        Button button = (Button) findViewById(R.id.loginButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                        Log.i(LOG_LABEL,"email:"+editemailtext.getText().toString());
-                        Log.i(LOG_LABEL,"email:"+editpasswordtext.getText().toString());
+            Log.i(LOG_LABEL, "email:" + editemailtext.getText().toString());
+            Log.i(LOG_LABEL, "email:" + editpasswordtext.getText().toString());
 
-                        RequestBody formBody = new FormBody.Builder()
-                                .add("emailid", editemailtext.getText().toString())
-                                .add("password", editpasswordtext.getText().toString())
-                                .build();
-                        Request request = new Request.Builder()
-                                .url("http://192.168.2.12/index.php/users/login")
-                                .post(formBody)
-                                .build();
+            RequestBody formBody = new FormBody.Builder()
+                    .add("emailid", editemailtext.getText().toString())
+                    .add("password", editpasswordtext.getText().toString())
+                    .build();
+            Request request = new Request.Builder()
+                    .url("http://192.168.2.12/index.php/users/login")
+                    .post(formBody)
+                    .build();
 
-                        client.newCall(request).enqueue(new Callback() {
-                            @Override
-                            public void onFailure(Call call, IOException e) {
-                                e.printStackTrace();
-                            }
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                }
 
-                            @Override
-                            public void onResponse(Call call, final Response response) throws IOException {
-                                if (!response.isSuccessful()) {
-                                    throw new IOException("Unexpected code " + response);
+                @Override
+                public void onResponse(Call call, final Response response) throws IOException {
+                    if (!response.isSuccessful()) {
+                        throw new IOException("Unexpected code " + response);
 
-                                }
-                                String jsonResponse = response.body().string();
-                                Log.i("Response", jsonResponse);
-                                Gson gson = new GsonBuilder().create();
-                                LoginResponse loginResponse = gson.fromJson(jsonResponse, LoginResponse.class);
-                                String token = loginResponse.token;
-                                Log.i("Status", loginResponse.status);
-                                Log.i("Message", loginResponse.message);
-                                Log.i("token", loginResponse.token);
-                                // first parameter is the context, second is the class of the activity to launch
-                                Intent intent = new Intent(MainActivity.this, UserItems.class);
-                                intent.putExtra("token", token);
-                                startActivity(intent);
-//                                finish();
-                            }
-                        });
                     }
-                });
-
+                    String jsonResponse = response.body().string();
+                    Log.i("Response", jsonResponse);
+                    Gson gson = new GsonBuilder().create();
+                    LoginResponse loginResponse = gson.fromJson(jsonResponse, LoginResponse.class);
+                    token = loginResponse.token;
+                    Log.i("Status", loginResponse.status);
+                    Log.i("Message", loginResponse.message);
+                    Log.i("token", loginResponse.token);
+                    wishlistappsettings = getSharedPreferences("WishListAppSettings", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = wishlistappsettings.edit();
+                    editor.putString("token", token);
+                    editor.commit();
+                    Intent intent = new Intent(MainActivity.this, UserTasks.class);
+                    startActivity(intent);
+                }
+            });
+            }
+        });
     }
-
-
-
-
 }
