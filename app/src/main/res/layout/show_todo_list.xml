@@ -2,14 +2,17 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.example.murthyavanithsa.wishlistapp.UserItems">
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listView2"
+        android:id="@+id/listView2do"
+        android:overScrollMode="always"
         android:layout_gravity="center_horizontal" />
     <android.support.design.widget.FloatingActionButton
         android:layout_width="50dp"
