@@ -1,5 +1,11 @@
 <resources>
-    <string name="app_name">Wish List</string>
+    <string name="app_name">WishList</string>
     <string name="action_settings">Logout</string>
     <string name="title_activity_user_items">UserItems</string>
+    <string name="server_client_id">90246291452-rckofbdco85hv8p4275v3uu4tk1u2ona.apps.googleusercontent.com</string>
+    <string name="loading">Loading…</string>
+    <string name="sign_out">Signed Out</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="signed_in_fmt">Signed in as: %s</string>
+    <string name="signed_out">Signed out</string>
 </resources>

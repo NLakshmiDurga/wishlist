@@ -7,22 +7,10 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.GestureDetector;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.daimajia.swipe.SwipeLayout;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -36,6 +24,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+
+
 class SavedUserItems{
     int item_id;
     String item_name;
@@ -68,17 +58,26 @@ class User_tasks{
     }
 }
 
-public class UserTasks extends AppCompatActivity {
+public class UserTasks extends AppCompatActivity{
     ArrayList<User_tasks> itemsArrayList;
     ListView listView;
     //    ArrayAdapter arrayAdapter;
     TodoListAdaptor todoListAdaptor;
     private Handler mHandler;
+    static String usertoken;
     SharedPreferences wishListAppSettings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.show_todo_list);
+        setContentView(R.layout.activity_user_items);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbaraui);
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setTitle("WishList");
+//        toolbar.setTitleTextColor(Color.red(Color.RED));
+//        SwipeLayout swipeLayout = (SwipeLayout) findViewById(R.id.swipelayout);
+//        swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
+//        swipeLayout.addDrag(SwipeLayout.DragEdge.Left, findViewById(R.id.bottomwrapper1));
+//        swipeLayout.addDrag(SwipeLayout.DragEdge.Right,findViewById(R.id.bottomwrapper));
         FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
         floatingActionButton.jumpDrawablesToCurrentState();
         floatingActionButton.show();
@@ -91,9 +90,9 @@ public class UserTasks extends AppCompatActivity {
             }
         });
         wishListAppSettings = getSharedPreferences("WishListAppSettings", MODE_PRIVATE);
-        String usertoken = wishListAppSettings.getString("token", "token is missing");
+        usertoken = wishListAppSettings.getString("token", "token is missing");
         Log.i("userToken", usertoken);
-        listView = (ListView) findViewById(R.id.listView2do);
+        listView = (ListView) findViewById(R.id.listView);
         itemsArrayList = new ArrayList<User_tasks>();
 //        itemsArrayList = new ArrayList<String>();
         mHandler = new Handler(Looper.getMainLooper());
@@ -129,7 +128,7 @@ public class UserTasks extends AppCompatActivity {
 //                for (SavedUserItems saveItem:userItemsResponse.usersaveditems){
 //                    itemsArrayList.add(saveItem);
 //                }
-                UserTask userTask = gson.fromJson(jsonResponse, UserTask.class);
+                final UserTask userTask = gson.fromJson(jsonResponse, UserTask.class);
                 if(userTask.status.equals("True")){
                     for (User_tasks user_tasks : userTask.tasks) {
                         itemsArrayList.add(user_tasks);
@@ -139,53 +138,36 @@ public class UserTasks extends AppCompatActivity {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                    listView.setAdapter(todoListAdaptor);
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            ((SwipeLayout) (listView.getChildAt(position - listView.getFirstVisiblePosition()))).open(true);
-                        }
-                    });
-                    listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                        @Override
-                        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                            return true;
-                        }
-                    });
-                        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-                            @Override
-                            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                                Log.e("ListView", "onScrollStateChanged");
-                            }
-
-                            @Override
-                            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-                            }
-                    });
-
+                        listView.setAdapter(todoListAdaptor);
                     }
                 });
             }
         });
     }
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-        return true;
+    public void onPause(){
+        super.onPause();
+        wishListAppSettings = getSharedPreferences("WishListAppSettings", MODE_PRIVATE);
+        usertoken = wishListAppSettings.getString("token", "token is missing");
+        Log.i("userToken in pause", usertoken);
     }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                Intent logoutintent = new Intent(UserTasks.this,Logout.class);
-                startActivity(logoutintent);
-                Toast.makeText(getBaseContext(), "clicked on logout", Toast.LENGTH_LONG).show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle item selection
+//        switch (item.getItemId()) {
+//            case R.id.action_settings:
+//                Intent logoutintent = new Intent(UserTasks.this,Logout.class);
+//                startActivity(logoutintent);
+//                Toast.makeText(getBaseContext(), "clicked on logout", Toast.LENGTH_LONG).show();
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 }

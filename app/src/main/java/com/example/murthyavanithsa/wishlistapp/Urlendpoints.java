@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
  * Created by durga on 6/3/16.
  */
 public class Urlendpoints extends AppCompatActivity {
-    public String BASE_URL = "http://www.murthya.com/";
+    public String BASE_URL = "http://139.59.255.197/";
     public String getsignup(){
         String signup = "users/signup";
         return BASE_URL+signup;

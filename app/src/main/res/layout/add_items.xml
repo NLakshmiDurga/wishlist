@@ -1,28 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.murthyavanithsa.wishlistapp.UserItems">
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:context="com.example.murthyavanithsa.wishlistapp.AddTasks">
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/toolbar"-->
+        <!--android:minHeight="?attr/actionBarSize"-->
+        <!--android:minWidth="?attr/actionBarSize"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="?attr/colorPrimary"-->
+        <!--app:popupTheme="@style/AppTheme.PopupOverlay" />-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1">
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="Add your task"
+        android:background="#00000000"
+        android:textSize="30dp"
         android:inputType="textVisiblePassword"
-        android:id="@+id/addtask" />
-
+        android:id="@+id/addtask"
+        android:textColor="@color/colorAccent"
+        android:layout_marginTop="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
     <Button
         android:layout_width="209dp"
         android:layout_height="wrap_content"
-        android:text="Add"
-        android:id="@+id/submitbutton" />
-</LinearLayout>
-</android.support.design.widget.CoordinatorLayout>
+        android:text="Done"
+        android:id="@+id/submitbutton"
+        android:textSize="30dp"
+        android:textColor="#E74C3C"
+        android:gravity="end"
+        android:background="#DEDCDB"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>
+</RelativeLayout>
