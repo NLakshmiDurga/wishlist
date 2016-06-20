@@ -1,4 +1,4 @@
-package com.example.murthyavanithsa.signinwithgoogle;
+package com.example.murthyavanithsa.wishlistapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,9 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.murthyavanithsa.wishlistapp.R;
-import com.example.murthyavanithsa.wishlistapp.Urlendpoints;
-import com.example.murthyavanithsa.wishlistapp.UserTasks;
+import com.example.murthyavanithsa.signinwithgoogle.SignInActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -37,93 +35,105 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-class LoginResponse{
-        String status;
-        String message;
-        String token;
+/**
+ * Created by durga on 4/3/16.
+ */
+class SignUpResponse{
+    String status;
+    String message;
+    String user_token;
+    String existemailid;
 }
-
-public class SignInActivity extends AppCompatActivity implements
-        GoogleApiClient.OnConnectionFailedListener,
-        View.OnClickListener  {
+public class SignUp extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,View.OnClickListener {
+    EditText editnametext;
     EditText editemailtext;
     EditText editpasswordtext;
-    Handler handler;
-    private static final String TAG = "SignInActivity";
+    String username,emailid,password,type;
+    SharedPreferences wishlistappsettings;
+    private static final String TAG = "SignUpActivity";
     private static final int RC_SIGN_IN = 9001;
     private GoogleApiClient mGoogleApiClient;
-    String emailid,password;
-    SharedPreferences wishlistappsettings;
+    final Urlendpoints urlendpoints = new Urlendpoints();
     final OkHttpClient client = new OkHttpClient();
-    Urlendpoints urlendpoints = new Urlendpoints();
+    Handler handler;
+    String LOG_LABEL="SignUp";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_layout);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-        TextView signuptextview= (TextView) findViewById(R.id.textviewsignup);
-        signuptextview.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.sign_up);
+        handler = new Handler(Looper.getMainLooper());
+        editnametext = (EditText) findViewById(R.id.username);
+        editemailtext = (EditText) findViewById(R.id.signupemailid);
+        editpasswordtext = (EditText) findViewById(R.id.signuppassword);
+        TextView textViewtosignin = (TextView) findViewById(R.id.textviewtosignin);
+        textViewtosignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent signupIntent = new Intent(SignInActivity.this,SignUp.class);
-                startActivity(signupIntent);
-                finish();
+                existingUser();
             }
         });
-        handler = new Handler(Looper.getMainLooper());
-        editemailtext = (EditText) findViewById(R.id.emailid);
-        editpasswordtext = (EditText) findViewById(R.id.password);
-        Button loginbutton = (Button) findViewById(R.id.loginButton);
-        loginbutton.setOnClickListener(new View.OnClickListener() {
+        Button button = (Button) findViewById(R.id.signupbutton);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                username = editnametext.getText().toString();
                 emailid = editemailtext.getText().toString();
                 password = editpasswordtext.getText().toString();
-                Log.i(TAG, "email:" + emailid);
-                Log.i(TAG, "password:" + password);
+                type = "wishlistlogin";
+                Log.i(LOG_LABEL, "username:" + username);
+                Log.i(LOG_LABEL, "email:" + emailid);
+                Log.i(LOG_LABEL, "password:" + password);
+                Log.i(LOG_LABEL, "type:" + type);
                 if(Patterns.EMAIL_ADDRESS.matcher(emailid).matches()) {
                     // e-mail is valid
-                    if (emailid.isEmpty() || password.isEmpty()){
-                        Toast.makeText(SignInActivity.this, "Please give valid inputs (emailid,password)", Toast.LENGTH_LONG).show();
+                    if (username.isEmpty() || emailid.isEmpty() || password.isEmpty()){
+                        Toast.makeText(SignUp.this, "Please give valid inputs (username,emailid,password)", Toast.LENGTH_LONG).show();
                     }
                     else{
-                        userSignIn(emailid, password);
+                        userSignUp(username, emailid, password, type);
                     }
                 }
                 else {
                     // e-mail is invalid
-                    Toast.makeText(SignInActivity.this, "Please enter correct email address", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignUp.this, "Please enter correct email address", Toast.LENGTH_LONG).show();
                 }
             }
         });
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
-
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-        SignInButton signInButton = (SignInButton) findViewById(R.id.sign_in_button);
+        SignInButton signInButton = (SignInButton) findViewById(R.id.signupgooglebutton);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
         signInButton.setScopes(gso.getScopeArray());
-        findViewById(R.id.sign_in_button).setOnClickListener(this);
+        setGooglePlusButtonText(signInButton,"Signup with google");
+        findViewById(R.id.signupgooglebutton).setOnClickListener(this);
+
     }
+
     private void handleSignInResult(GoogleSignInResult result) {
         Log.d(TAG, "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
+            username = acct.getDisplayName();
             emailid = acct.getEmail();
+//            String id = acct.getIdToken();
             password = "";
+            type = "googlelogin";
+            Log.i("name",username);
             Log.i("email",emailid);
-            userSignIn(emailid,password);
+            userSignUp(username, emailid, password, type);
+//            Log.i("id",id);
         } else {
             // Signed out, show unauthenticated UI.
             Toast.makeText(getBaseContext(), "Not logged in", Toast.LENGTH_LONG).show();
         }
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -147,22 +157,38 @@ public class SignInActivity extends AppCompatActivity implements
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
+
+    protected void setGooglePlusButtonText(SignInButton signInButton, String buttonText) {
+        // Find the TextView that is inside of the SignInButton and set its text
+        for (int i = 0; i < signInButton.getChildCount(); i++) {
+            View v = signInButton.getChildAt(i);
+
+            if (v instanceof TextView) {
+                TextView tv = (TextView) v;
+                tv.setText(buttonText);
+                return;
+            }
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.sign_in_button:
+            case R.id.signupgooglebutton:
                 signIn();
                 break;
         }
     }
 
-    public void userSignIn(String emailid,String password){
+    public void userSignUp(String username,String emailid,String password,String type){
         RequestBody formBody = new FormBody.Builder()
+                .add("username", username)
                 .add("emailid", emailid)
                 .add("password", password)
+                .add("type", type)
                 .build();
         Request request = new Request.Builder()
-                .url(urlendpoints.getloginurl())
+                .url(urlendpoints.getsignup())
                 .post(formBody)
                 .build();
 
@@ -171,44 +197,58 @@ public class SignInActivity extends AppCompatActivity implements
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
             }
-
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
                 if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response);
+
                 }
                 String jsonResponse = response.body().string();
-                Log.i("Response", jsonResponse);
-                Gson gson = new GsonBuilder().create();
-                final LoginResponse loginResponse = gson.fromJson(jsonResponse, LoginResponse.class);
-                Log.i("Status", loginResponse.status);
-                Log.i("Message", loginResponse.message);
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        wishlistappsettings = getSharedPreferences("WishListAppSettings", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = wishlistappsettings.edit();
-                        editor.putString("token", loginResponse.token);
-                        editor.apply();
-                        String token = wishlistappsettings.getString("token", "token is missing");
-                        if (loginResponse.token.equals(token)) {
-                            Toast.makeText(getBaseContext(), "Successfully logged in", Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(SignInActivity.this, UserTasks.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Toast.makeText(getBaseContext(), "login correctly", Toast.LENGTH_LONG).show();
+                Log.i("signup Response", jsonResponse);
+                Gson gson = new GsonBuilder().serializeNulls().create();
+                final SignUpResponse signUpResponse = gson.fromJson(jsonResponse, SignUpResponse.class);
+                Log.i(LOG_LABEL,"signupresponse" + signUpResponse.toString());
+                Log.i(LOG_LABEL,"status" +signUpResponse.status);
+                Log.i(LOG_LABEL,"message" +signUpResponse.message);
+                if (signUpResponse.status.equals("True")) {
+                    wishlistappsettings = getSharedPreferences("WishListAppSettings", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = wishlistappsettings.edit();
+                    editor.putString("token", signUpResponse.user_token);
+                    editor.apply();
+                    newUser();
+                } else {
+                    SignUp.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(SignUp.this, signUpResponse.message, Toast.LENGTH_LONG).show();
+
                         }
-                    }
-                });
+                    });
+                }
             }
         });
     }
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        startActivity(intent);
+    public void newUser(){
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(SignUp.this, UserTasks.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
+    public void existingUser(){
+        Intent intent = new Intent(SignUp.this, SignInActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        super.onCreateOptionsMenu(menu);
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
 }
