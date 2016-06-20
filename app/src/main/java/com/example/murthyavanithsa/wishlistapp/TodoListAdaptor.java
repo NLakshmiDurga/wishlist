@@ -129,6 +129,7 @@ public class TodoListAdaptor extends ArrayAdapter<User_tasks> {
                         }
                         String jsonResponse = response.body().string();
                         Log.i("Done item response", jsonResponse);
+
                     }
                 });
             }

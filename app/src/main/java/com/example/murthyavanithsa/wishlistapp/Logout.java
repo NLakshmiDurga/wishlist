@@ -5,8 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.murthyavanithsa.signinwithgoogle.SignInActivity;
-
 /**
  * Created by durga on 8/3/16.
  */
