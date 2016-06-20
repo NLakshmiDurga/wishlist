@@ -32,14 +32,20 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:textSize="30dp"
+        android:layout_marginTop="100dp"/>
     <Button
         android:layout_width="209dp"
         android:layout_height="wrap_content"
         android:text="Done"
         android:id="@+id/submitbutton"
-        android:textSize="30dp"
+        android:textSize="20dp"
         android:textColor="#E74C3C"
-        android:gravity="end"
+        android:gravity="end|center"
         android:background="#DEDCDB"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"

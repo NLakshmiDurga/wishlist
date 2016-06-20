@@ -8,8 +8,12 @@ import android.os.Looper;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -65,12 +69,14 @@ public class UserTasks extends AppCompatActivity{
     TodoListAdaptor todoListAdaptor;
     private Handler mHandler;
     static String usertoken;
+    private static final String TAG = "UserTasks";
     SharedPreferences wishListAppSettings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_items);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbaraui);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        toolbar.showContextMenu();
 //        setSupportActionBar(toolbar);
 //        getSupportActionBar().setTitle("WishList");
 //        toolbar.setTitleTextColor(Color.red(Color.RED));
@@ -85,8 +91,8 @@ public class UserTasks extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Intent userTasksIntent = new Intent(UserTasks.this, AddTasks.class);
-                finish();
                 startActivity(userTasksIntent);
+                finish();
             }
         });
         wishListAppSettings = getSharedPreferences("WishListAppSettings", MODE_PRIVATE);
@@ -111,10 +117,9 @@ public class UserTasks extends AppCompatActivity{
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                Log.e("Error",e.toString());
                 e.printStackTrace();
             }
-
-
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
                 if (!response.isSuccessful()) {
@@ -134,7 +139,6 @@ public class UserTasks extends AppCompatActivity{
                         itemsArrayList.add(user_tasks);
                     }
                 }
-
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -144,6 +148,7 @@ public class UserTasks extends AppCompatActivity{
             }
         });
     }
+
     @Override
     public void onPause(){
         super.onPause();
@@ -151,23 +156,39 @@ public class UserTasks extends AppCompatActivity{
         usertoken = wishListAppSettings.getString("token", "token is missing");
         Log.i("userToken in pause", usertoken);
     }
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle item selection
-//        switch (item.getItemId()) {
-//            case R.id.action_settings:
-//                Intent logoutintent = new Intent(UserTasks.this,Logout.class);
-//                startActivity(logoutintent);
-//                Toast.makeText(getBaseContext(), "clicked on logout", Toast.LENGTH_LONG).show();
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem){
+        switch (menuItem.getItemId()){
+            case R.id.logout:
+                Intent intent = new Intent(this,Logout.class);
+                startActivity(intent);
+                break;
+            case R.id.item_settings:
+                Toast.makeText(getBaseContext(), "Clicked on settings", Toast.LENGTH_LONG).show();
+                break;
+            default:
+                return super.onOptionsItemSelected(menuItem);
+        }
+        return true;
+    }
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+        wishListAppSettings = getSharedPreferences("WishListAppSettings", MODE_PRIVATE);
+        usertoken = wishListAppSettings.getString("token", "token is missing");
+        Log.i("Token resume addtask", usertoken);
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        startActivity(intent);
+    }
 }

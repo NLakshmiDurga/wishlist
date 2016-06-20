@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.murthyavanithsa.signinwithgoogle.MainActivity;
+import com.example.murthyavanithsa.signinwithgoogle.SignInActivity;
 
 /**
  * Created by durga on 8/3/16.
@@ -21,7 +21,7 @@ public class Logout extends AppCompatActivity {
         editor.remove("token");
         editor.remove("user-token");
         editor.apply();
-        Intent intent = new Intent(Logout.this,MainActivity.class);
+        Intent intent = new Intent(Logout.this,SignInActivity.class);
         startActivity(intent);
     }
 

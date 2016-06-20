@@ -2,7 +2,6 @@ package com.example.murthyavanithsa.wishlistapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Paint;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -107,7 +106,7 @@ public class TodoListAdaptor extends ArrayAdapter<User_tasks> {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "click done", Toast.LENGTH_SHORT).show();
-                textViewdone.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+//                textViewdone.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
                 RequestBody formBody = new FormBody.Builder()
                         .add("token", token)
                         .add("taskid", Integer.toString(task1.task_id))

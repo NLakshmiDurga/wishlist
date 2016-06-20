@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
+    android:layout_height="match_parent"
+    android:weightSum="1">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="WishList"
+        android:id="@+id/textView"
+        android:textColor="#E74C3C"
+        android:textSize="30dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_above="@+id/emailid"
+        android:layout_centerHorizontal="true" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +21,11 @@
         android:hint="User Name"
         android:ems="10"
         android:id="@+id/username"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="56dp" />
 
     <EditText
         android:layout_width="match_parent"
@@ -27,7 +34,11 @@
         android:hint="Email id"
         android:ems="10"
         android:id="@+id/signupemailid"
-        android:layout_gravity="center_horizontal" />
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/username"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="match_parent"
@@ -36,14 +47,40 @@
         android:hint="password"
         android:ems="10"
         android:id="@+id/signuppassword"
-        android:layout_gravity="center_horizontal" />
-
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/signupemailid"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:text="Sign up"
         android:id="@+id/signupbutton"
-        android:layout_gravity="right" />
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/signuppassword"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/signupgooglebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/signupbutton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="If already a user? Click here to signin"
+        android:id="@+id/textviewtosignin"
+        android:layout_below="@+id/signupgooglebutton"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp" />
 
-</LinearLayout>
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

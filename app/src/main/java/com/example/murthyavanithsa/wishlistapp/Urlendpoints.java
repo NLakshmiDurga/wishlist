@@ -6,7 +6,8 @@ import android.support.v7.app.AppCompatActivity;
  * Created by durga on 6/3/16.
  */
 public class Urlendpoints extends AppCompatActivity {
-    public String BASE_URL = "http://139.59.255.197/";
+//    public String BASE_URL = "http://139.59.255.197/";
+public String BASE_URL = "http://192.168.2.12/";
     public String getsignup(){
         String signup = "users/signup";
         return BASE_URL+signup;
@@ -31,5 +32,8 @@ public class Urlendpoints extends AppCompatActivity {
         String addtasksurl = "usertasks/add_user_task";
         return BASE_URL+addtasksurl;
     }
-
+    public String searchitems(){
+        String searchitems = "basket/item_search_results";
+        return BASE_URL+searchitems;
+    }
 }
