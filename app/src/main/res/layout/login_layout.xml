@@ -72,7 +72,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Not yet user? Click here to Signup"
+            android:text="Click here to Signup"
             android:layout_below="@+id/sign_in_button"
             android:layout_centerHorizontal="true"
             android:textSize="20dp"

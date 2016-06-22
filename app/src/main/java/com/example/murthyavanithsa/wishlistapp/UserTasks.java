@@ -30,21 +30,21 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
-class SavedUserItems{
-    int item_id;
-    String item_name;
-    String status;
-    public SavedUserItems(String status,String item_name){
-        this.status = status;
-        this.item_name = item_name;
-    }
-}
-class UserItemsResponse{
-    String status;
-    String message;
-    SavedUserItems[] usersaveditems;
-
-}
+//class SavedUserItems{
+//    int item_id;
+//    String item_name;
+//    String status;
+//    public SavedUserItems(String status,String item_name){
+//        this.status = status;
+//        this.item_name = item_name;
+//    }
+//}
+//class UserItemsResponse{
+//    String status;
+//    String message;
+//    SavedUserItems[] usersaveditems;
+//
+//}
 class UserTask {
     String status;
     String message;
@@ -139,6 +139,9 @@ public class UserTasks extends AppCompatActivity{
                         itemsArrayList.add(user_tasks);
                     }
                 }
+                else{
+                    Toast.makeText(getBaseContext(), "login correctly", Toast.LENGTH_LONG).show();
+                }
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -154,7 +157,7 @@ public class UserTasks extends AppCompatActivity{
         super.onPause();
         wishListAppSettings = getSharedPreferences("WishListAppSettings", MODE_PRIVATE);
         usertoken = wishListAppSettings.getString("token", "token is missing");
-        Log.i("userToken in pause", usertoken);
+//        Log.i("userToken in pause", usertoken);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -182,7 +185,7 @@ public class UserTasks extends AppCompatActivity{
         super.onResume();  // Always call the superclass method first
         wishListAppSettings = getSharedPreferences("WishListAppSettings", MODE_PRIVATE);
         usertoken = wishListAppSettings.getString("token", "token is missing");
-        Log.i("Token resume addtask", usertoken);
+//        Log.i("Token resume addtask", usertoken);
     }
     @Override
     public void onBackPressed() {

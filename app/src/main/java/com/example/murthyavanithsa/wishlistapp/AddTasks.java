@@ -12,6 +12,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.IOException;
 
 import okhttp3.Call;
@@ -25,6 +28,10 @@ import okhttp3.Response;
 /**
  * Created by durga on 1/3/16.
  */
+class AddTaskResponse
+{
+    String status;
+}
 public class AddTasks extends AppCompatActivity {
     EditText editText;
     static String usertoken;
@@ -102,12 +109,13 @@ public class AddTasks extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Text:", editText.getText().toString());
+                String tasktoadd = editText.getText().toString();
+                Log.i("Text:", tasktoadd);
                 Log.i("User token in add items", token);
 //                Toast.makeText(AddTasks.this, "Clicked green Floating Action Button", Toast.LENGTH_SHORT).show();
                 RequestBody formBody = new FormBody.Builder()
                         .add("token", token)
-                        .add("task",editText.getText().toString())
+                        .add("task", tasktoadd)
                         .build();
                 Request request = new Request.Builder()
                         .url(urlendpoints.getaddtasksurl())
@@ -119,6 +127,7 @@ public class AddTasks extends AppCompatActivity {
                     public void onFailure(Call call, IOException e) {
                         e.printStackTrace();
                     }
+
                     @Override
                     public void onResponse(Call call, final Response response) throws IOException {
                         if (!response.isSuccessful()) {
@@ -126,12 +135,20 @@ public class AddTasks extends AppCompatActivity {
                         }
                         String jsonResponse = response.body().string();
                         Log.i("User add item response", jsonResponse);
-                        // Gson gson = new GsonBuilder().create();
+                        Gson gson = new GsonBuilder().create();
+                        final AddTaskResponse addTaskResponse = gson.fromJson(jsonResponse,AddTaskResponse.class);
+                        if (addTaskResponse.status.equals("True"))
+                        {
+                            Intent addTasksIntent = new Intent(AddTasks.this, UserTasks.class);
+                            finish();
+                            startActivity(addTasksIntent);
+                        }
+//                        else {
+//                            Toast.makeText(getBaseContext(), "Add your tasks", Toast.LENGTH_LONG).show();
+//                        }
                     }
                 });
-                Intent addTasksIntent = new Intent(AddTasks.this, UserTasks.class);
-                finish();
-                startActivity(addTasksIntent);
+
             }
         });
     }
