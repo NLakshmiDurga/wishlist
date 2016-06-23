@@ -2,6 +2,7 @@ package com.example.murthyavanithsa.wishlistapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -14,6 +15,8 @@ import android.widget.Toast;
 
 import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,6 +32,9 @@ import okhttp3.Response;
 /**
  * Created by durga on 21/2/16.
  */
+class UpdatetaskResponse{
+    String status;
+}
 public class TodoListAdaptor extends ArrayAdapter<User_tasks> {
     ArrayList<User_tasks> itemsArrayList;
     Handler handler;
@@ -128,7 +134,11 @@ public class TodoListAdaptor extends ArrayAdapter<User_tasks> {
                         }
                         String jsonResponse = response.body().string();
                         Log.i("Done item response", jsonResponse);
-
+                        Gson gson = new GsonBuilder().create();
+                        UpdatetaskResponse updatetaskResponse = gson.fromJson(jsonResponse,UpdatetaskResponse.class);
+                        if (updatetaskResponse.status.equals("True")){
+                            textViewdone.setTextColor(Color.parseColor("#27AE60"));
+                        }
                     }
                 });
             }
