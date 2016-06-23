@@ -140,7 +140,13 @@ public class UserTasks extends AppCompatActivity{
                     }
                 }
                 else{
-                    Toast.makeText(getBaseContext(), "login correctly", Toast.LENGTH_LONG).show();
+                    UserTasks.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(UserTasks.this, userTask.message, Toast.LENGTH_LONG).show();
+
+                        }
+                    });
                 }
                 mHandler.post(new Runnable() {
                     @Override
