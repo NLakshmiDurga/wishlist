@@ -80,7 +80,7 @@ public class SignInActivity extends AppCompatActivity implements
                 Log.i(TAG, "email:" + emailid);
                 Log.i(TAG, "password:" + password);
                 if(Patterns.EMAIL_ADDRESS.matcher(emailid).matches()) {
-                    // e-mail is valid
+                     //e-mail is valid
                     if (emailid.isEmpty() || password.isEmpty()){
                         Toast.makeText(SignInActivity.this, "Please give valid inputs (emailid,password)", Toast.LENGTH_LONG).show();
                     }
@@ -90,6 +90,9 @@ public class SignInActivity extends AppCompatActivity implements
                 }
                 else {
                     // e-mail is invalid
+                    editemailtext.getText().clear();
+                    editpasswordtext.getText().clear();
+                    editemailtext.requestFocus();
                     Toast.makeText(SignInActivity.this, "Please enter correct email address", Toast.LENGTH_LONG).show();
                 }
             }
@@ -188,13 +191,13 @@ public class SignInActivity extends AppCompatActivity implements
                         editor.putString("token", loginResponse.token);
                         editor.apply();
                         String token = wishlistappsettings.getString("token", "token is missing");
-                        if (loginResponse.token.equals(token)) {
+                        if (loginResponse.status.equals("True")) {
                             Toast.makeText(getBaseContext(), "Successfully logged in", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(SignInActivity.this, UserTasks.class);
-                            startActivity(intent);
                             finish();
+                            startActivity(intent);
                         } else {
-                            Toast.makeText(getBaseContext(), "login correctly", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), "email id does not exist", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
