@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -26,6 +27,7 @@ import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 
+import io.fabric.sdk.android.Fabric;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -59,6 +61,7 @@ public class SignUp extends AppCompatActivity implements GoogleApiClient.OnConne
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.sign_up);
         handler = new Handler(Looper.getMainLooper());
         editnametext = (EditText) findViewById(R.id.username);
@@ -87,6 +90,10 @@ public class SignUp extends AppCompatActivity implements GoogleApiClient.OnConne
                     // e-mail is valid
                     if (username.isEmpty() || emailid.isEmpty() || password.isEmpty()){
                         Toast.makeText(SignUp.this, "Please give valid inputs (username,emailid,password)", Toast.LENGTH_LONG).show();
+                        editnametext.getText().clear();
+                        editemailtext.getText().clear();
+                        editpasswordtext.getText().clear();
+                        editnametext.requestFocus();
                     }
                     else{
                         userSignUp(username, emailid, password, type);
@@ -94,6 +101,7 @@ public class SignUp extends AppCompatActivity implements GoogleApiClient.OnConne
                 }
                 else {
                     // e-mail is invalid
+                    editemailtext.requestFocus();
                     Toast.makeText(SignUp.this, "Please enter correct email address", Toast.LENGTH_LONG).show();
                 }
             }
