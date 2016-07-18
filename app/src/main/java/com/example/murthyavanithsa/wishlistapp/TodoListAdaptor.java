@@ -2,7 +2,6 @@ package com.example.murthyavanithsa.wishlistapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -34,6 +33,7 @@ import okhttp3.Response;
  */
 class UpdatetaskResponse{
     String status;
+    String message;
 }
 public class TodoListAdaptor extends ArrayAdapter<User_tasks> {
     ArrayList<User_tasks> itemsArrayList;
@@ -44,17 +44,28 @@ public class TodoListAdaptor extends ArrayAdapter<User_tasks> {
         super(context,0,itemsArrayList);
         this.itemsArrayList = itemsArrayList;
     }
-
-    public View getView(int position, View convertView,ViewGroup parent){
+//    public View getView(View convertView, ViewGroup parent){
+//        convertView = LayoutInflater.from(getContext()).inflate(R.layout.swipe_layout, parent, false);
+//        SwipeLayout swipeLayout = (SwipeLayout) convertView.findViewById(R.id.swipe);
+//        swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
+//        swipeLayout.addSwipeListener(new SimpleSwipeListener() {
+//            @Override
+//            public void onOpen(SwipeLayout layout) {
+//
+//            }
+//        });
+//        return convertView;
+//    }
+    public View getView(final int position, View convertView, ViewGroup parent){
         final User_tasks task1 = getItem(position);
         convertView = LayoutInflater.from(getContext()).inflate(R.layout.swipe_layout, parent, false);
         final TextView textViewdone = (TextView) convertView.findViewById(R.id.task);
         textViewdone.setText(task1.task);
         handler = new Handler(Looper.getMainLooper());
-        sharedPreferences = getContext().getSharedPreferences("WishListAppSettings", Context.MODE_PRIVATE);
-        token = sharedPreferences.getString("token", "token is missing");
         final Urlendpoints urlendpoints = new Urlendpoints();
         final OkHttpClient client = new OkHttpClient();
+        sharedPreferences = getContext().getSharedPreferences("WishListAppSettings", Context.MODE_PRIVATE);
+        token = sharedPreferences.getString("token", "token is missing");
         SwipeLayout swipeLayout = (SwipeLayout) convertView.findViewById(R.id.swipe);
         swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
         swipeLayout.addDrag(SwipeLayout.DragEdge.Left, convertView.findViewById(R.id.bottomwrapper1));
@@ -62,6 +73,7 @@ public class TodoListAdaptor extends ArrayAdapter<User_tasks> {
         swipeLayout.addSwipeListener(new SimpleSwipeListener() {
             @Override
             public void onOpen(SwipeLayout layout) {
+                
             }
         });
         swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
@@ -70,48 +82,72 @@ public class TodoListAdaptor extends ArrayAdapter<User_tasks> {
                 Toast.makeText(getContext(), "DoubleClick", Toast.LENGTH_SHORT).show();
             }
         });
+        final ArrayList doneArrayList = new ArrayList();
+        final ArrayList deleteArrayList = new ArrayList();
+        final int taskposition = getPosition(task1);
         convertView.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.i("taskidin deletebtn", Integer.toString(task1.task_id));
-                Toast.makeText(getContext(), "click delete", Toast.LENGTH_SHORT).show();
-                RequestBody formBody = new FormBody.Builder()
-                        .add("token", token)
-                        .add("taskid", Integer.toString(task1.task_id))
-                        .build();
-                Request request = new Request.Builder()
-                        .url(urlendpoints.getdeleteurl())
-                        .post(formBody)
-                        .build();
+                Toast.makeText(getContext(), "clicked on delete", Toast.LENGTH_SHORT).show();
+                itemsArrayList.remove(taskposition);
+                notifyDataSetChanged();
 
-                client.newCall(request).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    @Override
-                    public void onResponse(Call call, final Response response) throws IOException {
-                        if (!response.isSuccessful()) {
-                            throw new IOException("Unexpected code " + response);
-                        }
-                        String jsonResponse = response.body().string();
-                        Log.i("Delete item response", jsonResponse);
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                itemsArrayList.remove(getPosition(task1));
-                                notifyDataSetChanged();
-                            }
-                        });
-                    }
-                });
+//                if (Integer.toString(taskposition)!=null){
+//                    deleteArrayList.add(taskposition);
+//                    Log.i("deletetaskid",deleteArrayList.toString());
+//                    Log.i("itemsarraylist",Integer.toString(itemsArrayList.size()));
+//                    Log.i("position of task",Integer.toString(taskposition));
+//                    itemsArrayList.remove(taskposition);
+//                    notifyDataSetChanged();
+//                }
+//                RequestBody formBody = new FormBody.Builder()
+//                        .add("token", token)
+//                        .add("taskid", Integer.toString(task1.task_id))
+//                        .build();
+//                Request request = new Request.Builder()
+//                        .url(urlendpoints.getdeleteurl())
+//                        .post(formBody)
+//                        .build();
+//
+//                client.newCall(request).enqueue(new Callback() {
+//                    @Override
+//                    public void onFailure(Call call, IOException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                    @Override
+//                    public void onResponse(Call call, final Response response) throws IOException {
+//                        if (!response.isSuccessful()) {
+//                            throw new IOException("Unexpected code " + response);
+//                        }
+//                        String jsonResponse = response.body().string();
+//                        Log.i("Delete item response", jsonResponse);
+//                        handler.post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                itemsArrayList.remove(getPosition(task1));
+//                                notifyDataSetChanged();
+//                            }
+//                        });
+//                    }
+//                });
             }
         });
         convertView.findViewById(R.id.done).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "click done", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "clicked on done", Toast.LENGTH_SHORT).show();
+//                if (Integer.toString(taskposition)!=null){
+//                    doneArrayList.add(taskposition);
+//                    Log.i("done taskid",doneArrayList.toString());
+//                    Log.i("itemsarraylist",Integer.toString(itemsArrayList.size()));
+//                    Log.i("position of task",Integer.toString(taskposition));
+//
+//
+//                }
+                itemsArrayList.remove(taskposition);
+                notifyDataSetChanged();
                 RequestBody formBody = new FormBody.Builder()
                         .add("token", token)
                         .add("taskid", Integer.toString(task1.task_id))
@@ -135,10 +171,6 @@ public class TodoListAdaptor extends ArrayAdapter<User_tasks> {
                         String jsonResponse = response.body().string();
                         Log.i("Done item response", jsonResponse);
                         Gson gson = new GsonBuilder().create();
-                        UpdatetaskResponse updatetaskResponse = gson.fromJson(jsonResponse,UpdatetaskResponse.class);
-                        if (updatetaskResponse.status.equals("True")){
-                            textViewdone.setTextColor(Color.parseColor("#27AE60"));
-                        }
                     }
                 });
             }
