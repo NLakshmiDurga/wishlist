@@ -42,6 +42,7 @@ public class AddTasks extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_items);
         mHandler = new Handler(Looper.getMainLooper());
+        editText = (EditText) findViewById(R.id.addtask);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 //        getSupportActionBar().setTitle(R.string.app_name);
@@ -49,7 +50,6 @@ public class AddTasks extends AppCompatActivity {
 //        String[] COUNTRIES = new String[] {
 //                "Belgium", "France", "Italy", "Germany", "Spain"
 //        };
-        editText = (EditText) findViewById(R.id.addtask);
 //        textView = (AutoCompleteTextView) findViewById(R.id.addtask);
 //        ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line,COUNTRIES);
 //        textView.setAdapter(arrayAdapter);

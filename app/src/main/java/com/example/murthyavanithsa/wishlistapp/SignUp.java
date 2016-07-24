@@ -2,15 +2,19 @@ package com.example.murthyavanithsa.wishlistapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,6 +67,19 @@ public class SignUp extends AppCompatActivity implements GoogleApiClient.OnConne
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.sign_up);
+        TextView textView = new TextView(getApplicationContext());
+        ActionBar actionBar = getSupportActionBar();
+        RelativeLayout.LayoutParams layoutparams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        textView.setLayoutParams(layoutparams);
+        textView.setText("WishList");
+        textView.setTextSize(20);
+        //To set font created a directory called assets in that font directory is created.
+        Typeface face= Typeface.createFromAsset(getAssets(), "font/Roboto-Medium.ttf");
+        textView.setTypeface(face);
+        textView.setTextColor(getResources().getColor(R.color.textColorPrimary));
+        textView.setGravity(Gravity.CENTER);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        actionBar.setCustomView(textView);
         handler = new Handler(Looper.getMainLooper());
         editnametext = (EditText) findViewById(R.id.username);
         editemailtext = (EditText) findViewById(R.id.signupemailid);

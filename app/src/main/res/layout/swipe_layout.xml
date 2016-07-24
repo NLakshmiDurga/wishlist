@@ -9,7 +9,7 @@
         android:layout_width="160dp"
         android:layout_height="match_parent"
         android:weightSum="1"
-        android:background="@color/button">
+        android:background="@color/navdrawerbackground">
 
         <TextView
             android:layout_width="wrap_content"
@@ -19,7 +19,7 @@
             android:gravity="center"
             android:layout_gravity="center"
             android:textSize="20dp"
-            android:background="@color/button"
+            android:background="@color/navdrawerbackground"
             android:id="@+id/done"
             android:clickable="true"
             android:textColor="@color/colorPrimary"/>

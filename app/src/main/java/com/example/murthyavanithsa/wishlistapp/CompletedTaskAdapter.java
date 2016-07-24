@@ -44,9 +44,9 @@ public class CompletedTaskAdapter extends ArrayAdapter<User_tasks> {
         super(context,0,itemsArrayList);
         this.itemsArrayList = itemsArrayList;
     }
-    //    public View getView(View convertView, ViewGroup parent){
-//        convertView = LayoutInflater.from(getContext()).inflate(R.layout.swipe_layout, parent, false);
-//        SwipeLayout swipeLayout = (SwipeLayout) convertView.findViewById(R.id.swipe);
+//    public View getView(View convertView, ViewGroup parent){
+//        convertView = LayoutInflater.from(getContext()).inflate(R.layout.completedtaskswipelayout, parent, false);
+//        SwipeLayout swipeLayout = (SwipeLayout) convertView.findViewById(R.id.compltetaskswipe);
 //        swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
 //        swipeLayout.addSwipeListener(new SimpleSwipeListener() {
 //            @Override
@@ -58,7 +58,7 @@ public class CompletedTaskAdapter extends ArrayAdapter<User_tasks> {
 //    }
     public View getView(final int position, View convertView, ViewGroup parent){
         final User_tasks task1 = getItem(position);
-        convertView = LayoutInflater.from(getContext()).inflate(R.layout.swipe_layout, parent, false);
+        convertView = LayoutInflater.from(getContext()).inflate(R.layout.completedtaskswipelayout, parent, false);
         final TextView textViewdone = (TextView) convertView.findViewById(R.id.task);
         textViewdone.setText(task1.task);
         handler = new Handler(Looper.getMainLooper());
@@ -66,7 +66,7 @@ public class CompletedTaskAdapter extends ArrayAdapter<User_tasks> {
         final OkHttpClient client = new OkHttpClient();
         sharedPreferences = getContext().getSharedPreferences("WishListAppSettings", Context.MODE_PRIVATE);
         token = sharedPreferences.getString("token", "token is missing");
-        SwipeLayout swipeLayout = (SwipeLayout) convertView.findViewById(R.id.swipe);
+        SwipeLayout swipeLayout = (SwipeLayout) convertView.findViewById(R.id.compltetaskswipe);
         swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
         swipeLayout.addDrag(SwipeLayout.DragEdge.Left, convertView.findViewById(R.id.completedtaskbottomwrapper1));
         swipeLayout.addDrag(SwipeLayout.DragEdge.Right, convertView.findViewById(R.id.completedtaskbottomwrapper));

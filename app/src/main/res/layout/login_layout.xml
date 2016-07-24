@@ -11,16 +11,16 @@
         android:paddingRight="16dp"
         android:background="#F8F8FF"
         android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="WishList"
-            android:id="@+id/textView"
-            android:textColor="#E74C3C"
-            android:textSize="30dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_above="@+id/emailid"
-            android:layout_centerHorizontal="true" />
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="WishList"-->
+            <!--android:id="@+id/textView"-->
+            <!--android:textColor="#E74C3C"-->
+            <!--android:textSize="30dp"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:layout_above="@+id/emailid"-->
+            <!--android:layout_centerHorizontal="true" />-->
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
