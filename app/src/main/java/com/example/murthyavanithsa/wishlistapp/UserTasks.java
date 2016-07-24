@@ -7,14 +7,12 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,21 +20,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import java.io.IOException;
 import java.util.ArrayList;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 
 //class SavedUserItems{
@@ -172,68 +157,68 @@ public class UserTasks extends AppCompatActivity{
 //            public void onTabReselected(TabLayout.Tab tab) {
 //            }
 //        });
-        wishListAppSettings = getSharedPreferences("WishListAppSettings", MODE_PRIVATE);
-        usertoken = wishListAppSettings.getString("token", "token is missing");
-        Log.i("userToken", usertoken);
-        listView = (ListView) findViewById(listView);
-        itemsArrayList = new ArrayList<User_tasks>();
-//        itemsArrayList = new ArrayList<String>();
-        mHandler = new Handler(Looper.getMainLooper());
-//        UserItemsResponse.SavedUserItems savedUserItems;
-
-        Urlendpoints urlendpoints = new Urlendpoints();
-        OkHttpClient client = new OkHttpClient();
-        RequestBody formBody = new FormBody.Builder()
-                .add("token", usertoken)
-                .build();
-        Request request = new Request.Builder()
-                .url(urlendpoints.getusertasksurl())
-                .post(formBody)
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.e("Error",e.toString());
-                e.printStackTrace();
-            }
-            @Override
-            public void onResponse(Call call, final Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response);
-
-                }
-                String jsonResponse = response.body().string();
-                Log.i("User response", jsonResponse);
-                Gson gson = new GsonBuilder().create();
-//                UserItemsResponse userItemsResponse = gson.fromJson(jsonResponse, UserItemsResponse.class);
-//                for (SavedUserItems saveItem:userItemsResponse.usersaveditems){
-//                    itemsArrayList.add(saveItem);
+//        wishListAppSettings = getSharedPreferences("WishListAppSettings", MODE_PRIVATE);
+//        usertoken = wishListAppSettings.getString("token", "token is missing");
+//        Log.i("userToken", usertoken);
+//        listView = (ListView) findViewById(listView);
+//        itemsArrayList = new ArrayList<User_tasks>();
+////        itemsArrayList = new ArrayList<String>();
+//        mHandler = new Handler(Looper.getMainLooper());
+////        UserItemsResponse.SavedUserItems savedUserItems;
+//
+//        Urlendpoints urlendpoints = new Urlendpoints();
+//        OkHttpClient client = new OkHttpClient();
+//        RequestBody formBody = new FormBody.Builder()
+//                .add("token", usertoken)
+//                .build();
+//        Request request = new Request.Builder()
+//                .url(urlendpoints.getusertasksurl())
+//                .post(formBody)
+//                .build();
+//
+//        client.newCall(request).enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                Log.e("Error",e.toString());
+//                e.printStackTrace();
+//            }
+//            @Override
+//            public void onResponse(Call call, final Response response) throws IOException {
+//                if (!response.isSuccessful()) {
+//                    throw new IOException("Unexpected code " + response);
+//
 //                }
-                final UserTask userTask = gson.fromJson(jsonResponse, UserTask.class);
-                if(userTask.status.equals("True")){
-                    for (User_tasks user_tasks : userTask.tasks) {
-                        itemsArrayList.add(user_tasks);
-                    }
-                }
-                else{
-                    UserTasks.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(UserTasks.this, userTask.message, Toast.LENGTH_SHORT).show();
-
-                        }
-                    });
-                }
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        listView.setAdapter(todoListAdaptor);
-                        todoListAdaptor.notifyDataSetChanged();
-                    }
-                });
-            }
-        });
+//                String jsonResponse = response.body().string();
+//                Log.i("User response", jsonResponse);
+//                Gson gson = new GsonBuilder().create();
+////                UserItemsResponse userItemsResponse = gson.fromJson(jsonResponse, UserItemsResponse.class);
+////                for (SavedUserItems saveItem:userItemsResponse.usersaveditems){
+////                    itemsArrayList.add(saveItem);
+////                }
+//                final UserTask userTask = gson.fromJson(jsonResponse, UserTask.class);
+//                if(userTask.status.equals("True")){
+//                    for (User_tasks user_tasks : userTask.tasks) {
+//                        itemsArrayList.add(user_tasks);
+//                    }
+//                }
+//                else{
+//                    UserTasks.this.runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            Toast.makeText(UserTasks.this, userTask.message, Toast.LENGTH_SHORT).show();
+//
+//                        }
+//                    });
+//                }
+//                mHandler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        listView.setAdapter(todoListAdaptor);
+//                        todoListAdaptor.notifyDataSetChanged();
+//                    }
+//                });
+//            }
+//        });
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
