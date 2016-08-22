@@ -2,24 +2,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.murthyavanithsa.wishlistapp.UserTasks">
-    <item
-        android:id="@+id/deletetask"
-        android:title="@string/deletetask"
-        android:orderInCategory="100"
-        android:visible="true"/>
-    <item
-        android:id="@+id/item_settings"
-        android:title="@string/action_settings"
-        android:orderInCategory="100"
-        android:visible="true"/>
-    <item
-        android:id="@+id/logout"
-        android:orderInCategory="100"
-        android:visible="true"
-        android:title="@string/logout" />
-    <item
-        android:id="@+id/refresh"
-        android:orderInCategory="100"
-        android:visible="true"
-        android:title="@string/refresh" />
+    <!--<item-->
+        <!--android:id="@+id/deletetask"-->
+        <!--android:title="@string/deletetask"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:visible="true"/>-->
+    <!--<item-->
+        <!--android:id="@+id/item_settings"-->
+        <!--android:title="@string/action_settings"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:visible="true"/>-->
+    <!--<item-->
+        <!--android:id="@+id/logout"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:visible="true"-->
+        <!--android:title="@string/logout" />-->
+    <!--<item-->
+        <!--android:id="@+id/refresh"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:visible="true"-->
+        <!--android:title="@string/refresh" />-->
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/pending"
+            android:title="@string/pending"
+            android:icon="@drawable/pending"
+            android:orderInCategory="100"
+            android:visible="true"/>
+        <item
+            android:id="@+id/completed"
+            android:title="@string/completed"
+            android:icon="@drawable/completed"
+            android:orderInCategory="100"
+            android:visible="true"/>
+        <item
+            android:id="@+id/logout"
+            android:title="@string/logout"
+            android:icon="@drawable/logout"
+            android:orderInCategory="100"
+            android:visible="true"/>
+
+    </group>
 </menu>

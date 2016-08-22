@@ -2,65 +2,117 @@
 <com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:id="@+id/swipe"
-    android:layout_height="80dp">
-
+    android:layout_height="60dp">
     <LinearLayout
+        android:tag="Bottom4"
         android:id="@+id/bottomwrapper"
-        android:layout_width="160dp"
-        android:layout_height="match_parent"
-        android:weightSum="1"
-        android:background="@color/navdrawerbackground">
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Done"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:textSize="20dp"
-            android:background="@color/navdrawerbackground"
+        <ImageView
             android:id="@+id/done"
-            android:clickable="true"
-            android:textColor="@color/colorPrimary"/>
-        </LinearLayout>
-    <LinearLayout
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:weightSum="1"
-        android:id="@+id/bottomwrapper1"
-        android:background="@color/textColorPrimary">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/delete"
-            android:text="Delete"
-            android:textSize="20dp"
-            android:layout_weight="1"
-            android:gravity="center"
+            android:src="@drawable/completed"
+            android:layout_width="70dp"
             android:layout_gravity="center"
-            android:clickable="true"
-            android:textColor="@color/colorPrimary"
-            android:background="@color/textColorPrimary" />
+            android:background="@color/textColorPrimary"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:layout_height="match_parent" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray"
+            android:id="@+id/dividerview" />
+        <ImageView
+            android:id="@+id/delete"
+            android:src="@drawable/pending"
+            android:layout_width="70dp"
+            android:layout_gravity="center"
+            android:background="@color/textColorPrimary"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/bottomwrapper"-->
+        <!--android:layout_width="59dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:weightSum="1"-->
+        <!--android:background="@color/navdrawerbackground">-->
 
-    <LinearLayout
+        <!--<TextView-->
+            <!--android:layout_width="60dp"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:id="@+id/delete"-->
+            <!--android:text="Delete"-->
+            <!--android:textSize="20dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="right"-->
+            <!--android:layout_gravity="right"-->
+            <!--android:clickable="true"-->
+            <!--android:textColor="@color/colorPrimary"-->
+            <!--android:background="@color/textColorPrimary"-->
+            <!--android:layout_alignRight="@id/done"-->
+            <!--android:layout_toRightOf="@id/done"-->
+            <!--android:layout_toEndOf="@id/done"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentStart="true" />-->
+
+        <!--<View-->
+            <!--android:layout_width="1dp"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:background="@android:color/darker_gray"-->
+            <!--android:id="@+id/view"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_toEndOf="@id/done"-->
+            <!--android:layout_toRightOf="@id/done"/>-->
+
+        <!--<TextView-->
+            <!--android:layout_width="60dp"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:text="Done"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="left"-->
+            <!--android:layout_gravity="left"-->
+            <!--android:textSize="20dp"-->
+            <!--android:background="@color/navdrawerbackground"-->
+            <!--android:id="@+id/done"-->
+            <!--android:clickable="true"-->
+            <!--android:textColor="@color/colorPrimary"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_marginLeft="20dp"-->
+            <!--android:layout_marginStart="20dp" />-->
+    <!--</RelativeLayout>-->
+    <!--<RelativeLayout-->
+        <!--android:layout_width="160dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:weightSum="1"-->
+        <!--android:id="@+id/bottomwrapper1"-->
+        <!--android:background="@color/textColorPrimary">-->
+    <!--</RelativeLayout>-->
+
+    <RelativeLayout
         android:padding="10dp"
         android:id="@+id/surface_layer"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/colorPrimary"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="34dp"
+            android:layout_height="wrap_content"
             android:text="Task"
             android:textSize="15dp"
+            android:layout_marginStart="60dp"
+            android:textColor="@color/colorAccent"
             android:padding="5dp"
             android:id="@+id/task"
-            />
-    </LinearLayout>
+            android:layout_marginLeft="60dp"
+            android:layout_alignParentTop="true" />
+    </RelativeLayout>
 </com.daimajia.swipe.SwipeLayout>

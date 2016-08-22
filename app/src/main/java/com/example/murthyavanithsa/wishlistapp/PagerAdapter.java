@@ -21,10 +21,10 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
                 PendingTasks pendingTasks = new PendingTasks();
-                return pendingTasks;
+//                return pendingTasks;
             case 1:
                 CompletedTasks completedTasks = new CompletedTasks();
-                return completedTasks;
+//                return completedTasks;
             default:
                 return null;
         }

@@ -204,7 +204,7 @@ public class SignUp extends AppCompatActivity implements GoogleApiClient.OnConne
         }
     }
 
-    public void userSignUp(String username,String emailid,String password,String type){
+    public void userSignUp(final String username, final String emailid, String password, String type){
         RequestBody formBody = new FormBody.Builder()
                 .add("username", username)
                 .add("emailid", emailid)
@@ -238,6 +238,8 @@ public class SignUp extends AppCompatActivity implements GoogleApiClient.OnConne
                     wishlistappsettings = getSharedPreferences("WishListAppSettings", MODE_PRIVATE);
                     SharedPreferences.Editor editor = wishlistappsettings.edit();
                     editor.putString("token", signUpResponse.user_token);
+                    editor.putString("name",username);
+                    editor.putString("emilid",emailid);
                     editor.apply();
                     newUser();
                 } else {

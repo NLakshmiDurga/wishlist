@@ -31,10 +31,6 @@ import okhttp3.Response;
 /**
  * Created by durga on 21/2/16.
  */
-class UpdatetaskResponse{
-    String status;
-    String message;
-}
 public class TodoListAdaptor extends ArrayAdapter<User_tasks> {
     ArrayList<User_tasks> itemsArrayList;
     Handler handler;
@@ -44,23 +40,11 @@ public class TodoListAdaptor extends ArrayAdapter<User_tasks> {
         super(context,0,itemsArrayList);
         this.itemsArrayList = itemsArrayList;
     }
-//    public View getView(View convertView, ViewGroup parent){
-//        convertView = LayoutInflater.from(getContext()).inflate(R.layout.swipe_layout, parent, false);
-//        SwipeLayout swipeLayout = (SwipeLayout) convertView.findViewById(R.id.swipe);
-//        swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
-//        swipeLayout.addSwipeListener(new SimpleSwipeListener() {
-//            @Override
-//            public void onOpen(SwipeLayout layout) {
-//
-//            }
-//        });
-//        return convertView;
-//    }
     public View getView(final int position, View convertView, ViewGroup parent){
         final User_tasks task1 = getItem(position);
         convertView = LayoutInflater.from(getContext()).inflate(R.layout.swipe_layout, parent, false);
-        final TextView textViewdone = (TextView) convertView.findViewById(R.id.task);
-        textViewdone.setText(task1.task);
+        final TextView textView = (TextView) convertView.findViewById(R.id.task);
+        textView.setText(task1.task);
         handler = new Handler(Looper.getMainLooper());
         final Urlendpoints urlendpoints = new Urlendpoints();
         final OkHttpClient client = new OkHttpClient();
@@ -68,7 +52,7 @@ public class TodoListAdaptor extends ArrayAdapter<User_tasks> {
         token = sharedPreferences.getString("token", "token is missing");
         SwipeLayout swipeLayout = (SwipeLayout) convertView.findViewById(R.id.swipe);
         swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
-        swipeLayout.addDrag(SwipeLayout.DragEdge.Left, convertView.findViewById(R.id.bottomwrapper1));
+//        swipeLayout.addDrag(SwipeLayout.DragEdge.Left, convertView.findViewById(R.id.bottomwrapper1));
         swipeLayout.addDrag(SwipeLayout.DragEdge.Right, convertView.findViewById(R.id.bottomwrapper));
         swipeLayout.addSwipeListener(new SimpleSwipeListener() {
             @Override
@@ -82,8 +66,6 @@ public class TodoListAdaptor extends ArrayAdapter<User_tasks> {
                 Toast.makeText(getContext(), "DoubleClick", Toast.LENGTH_SHORT).show();
             }
         });
-        final ArrayList doneArrayList = new ArrayList();
-        final ArrayList deleteArrayList = new ArrayList();
         final int taskposition = getPosition(task1);
         convertView.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
             @Override

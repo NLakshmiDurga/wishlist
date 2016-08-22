@@ -1,10 +1,14 @@
 package com.example.murthyavanithsa.wishlistapp;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,27 +35,85 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * Created by durga on 5/7/16.
  */
-class UserTask {
-    String status;
-    String message;
-    User_tasks[] tasks;
+//public class CompletedTasks extends UserTasks {
+//    SharedPreferences wishListAppSettings;
+//    String usertoken;
+//    TodoListAdaptor todoListAdaptor;
+//    private Handler mHandler;
+//    ArrayList<User_tasks> itemsArrayList;
+//    ListView listView;
 
-}
-class User_tasks{
-    int task_id;
-    String task;
-    String status;
-    public User_tasks(int task_id,String task,String status){
-        this.task_id = task_id;
-        this.task = task;
-        this.status = status;
-    }
-}
+//    @Override
+//    public void onCreate(Bundle savedInstanceState){
+//        super.onCreate(savedInstanceState);
+//        LayoutInflater inflater = (LayoutInflater) this
+//                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        View contentView = inflater.inflate(R.layout.completedtask, null, false);
+//        drawerLayout.addView(contentView,0);
+////        super.replaceContentLayout(R.layout.completedtask, R.id.content_frame);
+//        wishListAppSettings = getSharedPreferences("WishListAppSettings", MODE_PRIVATE);
+//        usertoken = wishListAppSettings.getString("token", "token is missing");
+//        Log.i("userTokencompletedtask", usertoken);
+//        listView = (ListView) findViewById(R.id.completetasklistview);
+//        itemsArrayList = new ArrayList<User_tasks>();
+//        mHandler = new Handler(Looper.getMainLooper());
+//        todoListAdaptor = new TodoListAdaptor(this,itemsArrayList);
+//        Urlendpoints urlendpoints = new Urlendpoints();
+//        OkHttpClient client = new OkHttpClient();
+//        RequestBody formBody = new FormBody.Builder()
+//                .add("token", usertoken)
+//                .add("status","completed")
+//                .build();
+//        Request request = new Request.Builder()
+//                .url(urlendpoints.getusertasksurl())
+//                .post(formBody)
+//                .build();
+//        client.newCall(request).enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                Log.e("Error",e.toString());
+//                e.printStackTrace();
+//            }
+//            @Override
+//            public void onResponse(Call call, final Response response) throws IOException {
+//                if (!response.isSuccessful()) {
+//                    throw new IOException("Unexpected code " + response);
+//
+//                }
+//                String jsonResponse = response.body().string();
+//                Log.i("User response", jsonResponse);
+//                Gson gson = new GsonBuilder().create();
+//                final UserTask userTask = gson.fromJson(jsonResponse,UserTask.class);
+//                if(userTask.status.equals("True")){
+//                    for (User_tasks user_tasks : userTask.tasks) {
+//                        itemsArrayList.add(user_tasks);
+//                    }
+//                }
+//                else {
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            Toast.makeText(CompletedTasks.this, userTask.message, Toast.LENGTH_SHORT).show();
+//
+//                        }
+//                    });
+//                }
+//                mHandler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        listView.setAdapter(todoListAdaptor);
+//                    }
+//                });
+//            }
+//        });
+//    }
+//
+//}
 public class CompletedTasks extends Fragment {
     SharedPreferences wishListAppSettings;
     String usertoken;
-//    TodoListAdaptor todoListAdaptor;
-    CompletedTaskAdapter completedTaskAdapter;
+    //    TodoListAdaptor todoListAdaptor;
+    TodoListAdaptor completedTaskAdapter;
     private Handler mHandler;
     ArrayList<User_tasks> itemsArrayList;
     ListView listView;
@@ -61,6 +123,7 @@ public class CompletedTasks extends Fragment {
         listView = (ListView) rootView.findViewById(R.id.completetasklistview);
         return rootView;
     }
+    
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -73,7 +136,7 @@ public class CompletedTasks extends Fragment {
         mHandler = new Handler(Looper.getMainLooper());
 //        UserItemsResponse.SavedUserItems savedUserItems;
 //        todoListAdaptor = new TodoListAdaptor(getContext(), itemsArrayList);
-        completedTaskAdapter = new CompletedTaskAdapter(getContext(),itemsArrayList);
+        completedTaskAdapter = new TodoListAdaptor(getContext(),itemsArrayList);
         Urlendpoints urlendpoints = new Urlendpoints();
         OkHttpClient client = new OkHttpClient();
         RequestBody formBody = new FormBody.Builder()

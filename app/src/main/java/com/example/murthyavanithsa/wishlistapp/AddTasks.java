@@ -53,7 +53,7 @@ public class AddTasks extends AppCompatActivity {
 //        textView = (AutoCompleteTextView) findViewById(R.id.addtask);
 //        ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line,COUNTRIES);
 //        textView.setAdapter(arrayAdapter);
-        Button button = (Button) findViewById(R.id.submitbutton);
+        Button button = (Button) findViewById(R.id.button);
         final Urlendpoints urlendpoints = new Urlendpoints();
         final OkHttpClient client = new OkHttpClient();
         SharedPreferences sharedPreferences = getSharedPreferences("WishListAppSettings", MODE_PRIVATE);

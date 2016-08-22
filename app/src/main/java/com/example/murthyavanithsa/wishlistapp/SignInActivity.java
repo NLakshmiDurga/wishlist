@@ -53,7 +53,7 @@ public class SignInActivity extends AppCompatActivity implements
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
     private GoogleApiClient mGoogleApiClient;
-    String emailid,password;
+    String emailid,password,name;
     SharedPreferences wishlistappsettings;
     final OkHttpClient client = new OkHttpClient();
     Urlendpoints urlendpoints = new Urlendpoints();
@@ -132,13 +132,14 @@ public class SignInActivity extends AppCompatActivity implements
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
+            name = acct.getDisplayName();
             emailid = acct.getEmail();
             password = "";
             Log.i("email",emailid);
             userSignIn(emailid,password);
         } else {
             // Signed out, show unauthenticated UI.
-            Toast.makeText(getBaseContext(), "Not logged in", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), result.toString(), Toast.LENGTH_LONG).show();
         }
     }
     @Override
@@ -173,7 +174,7 @@ public class SignInActivity extends AppCompatActivity implements
         }
     }
 
-    public void userSignIn(String emailid,String password){
+    public void userSignIn(final String emailid, String password){
         RequestBody formBody = new FormBody.Builder()
                 .add("emailid", emailid)
                 .add("password", password)
@@ -204,14 +205,17 @@ public class SignInActivity extends AppCompatActivity implements
                     @Override
                     public void run() {
                         wishlistappsettings = getSharedPreferences("WishListAppSettings", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = wishlistappsettings.edit();
-                        editor.putString("token", loginResponse.token);
-                        editor.apply();
+//                        SharedPreferences.Editor editor = wishlistappsettings.edit();
+//                        editor.putString("token", loginResponse.token);
+//                        editor.putString("name",name);
+//                        editor.putString("emailid",emailid);
+//                        editor.apply();
                         String token = wishlistappsettings.getString("token", "token is missing");
                         if (loginResponse.status.equals("True")) {
-                            Toast.makeText(getBaseContext(), "Successfully logged in", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), "Signed in as: "+name, Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(SignInActivity.this, UserTasks.class);
                             finish();
+                            intent.putExtra("username",name);
                             startActivity(intent);
                         } else {
                             Toast.makeText(getBaseContext(), "email id does not exist", Toast.LENGTH_LONG).show();
