@@ -205,11 +205,11 @@ public class SignInActivity extends AppCompatActivity implements
                     @Override
                     public void run() {
                         wishlistappsettings = getSharedPreferences("WishListAppSettings", MODE_PRIVATE);
-//                        SharedPreferences.Editor editor = wishlistappsettings.edit();
-//                        editor.putString("token", loginResponse.token);
-//                        editor.putString("name",name);
-//                        editor.putString("emailid",emailid);
-//                        editor.apply();
+                        SharedPreferences.Editor editor = wishlistappsettings.edit();
+                        editor.putString("token", loginResponse.token);
+                        editor.putString("name",name);
+                        editor.putString("emailid",emailid);
+                        editor.apply();
                         String token = wishlistappsettings.getString("token", "token is missing");
                         if (loginResponse.status.equals("True")) {
                             Toast.makeText(getBaseContext(), "Signed in as: "+name, Toast.LENGTH_LONG).show();

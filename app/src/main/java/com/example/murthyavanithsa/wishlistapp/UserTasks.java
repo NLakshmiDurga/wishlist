@@ -164,13 +164,13 @@ public class UserTasks extends AppCompatActivity{
                 //Put your code here
                 super.onDrawerClosed(view);
                 UserTasks.this.supportInvalidateOptionsMenu();
-                actionBar.show();
+//                actionBar.show();
             }
             /* Called when a drawer is opened */
             public void onDrawerOpened(View drawerView) {
                 //Put your code here
                 super.onDrawerOpened(drawerView);
-                actionBar.hide();
+//                actionBar.hide();
             }
         };
         drawerLayout.setDrawerListener(mDrawerToggle);
