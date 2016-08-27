@@ -21,6 +21,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -93,10 +94,9 @@ public class UserTasks extends AppCompatActivity{
     TodoListAdaptor todoListAdaptor;
     private Handler mHandler;
     ActionBarDrawerToggle mDrawerToggle;
-    MenuItem menuItem;
-    Menu menu;
     String userName;
     Typeface face;
+    Toolbar toolbar;
     TextView headerTextView;
     static String usertoken;
     protected DrawerLayout drawerLayout;
@@ -109,30 +109,13 @@ public class UserTasks extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.useritems_list);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         wishListAppSettings = getSharedPreferences("WishListAppSettings", MODE_PRIVATE);
-        usertoken = wishListAppSettings.getString("token", "token is missing");
-        Log.i("userTokenusertasks", usertoken);
-        listView = (ListView) findViewById(R.id.listView);
-        itemsArrayList = new ArrayList<User_tasks>();
-//        itemsArrayList = new ArrayList<String>();
-        mHandler = new Handler(Looper.getMainLooper());
-        todoListAdaptor = new TodoListAdaptor(this,itemsArrayList);
-//        UserItemsResponse.SavedUserItems savedUserItems;
-        FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
-        floatingActionButton.jumpDrawablesToCurrentState();
-        floatingActionButton.show();
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent userTasksIntent = new Intent(UserTasks.this, AddTasks.class);
-                startActivity(userTasksIntent);
-                finish();
-            }
-        });
-
+        userName = wishListAppSettings.getString("name","name is missing");
+        Log.i("UserTask username",userName);
         TextView textView = new TextView(getApplicationContext());
         final ActionBar actionBar = getSupportActionBar();
-//        actionBar.setIcon(R.drawable.ic_drawer);
         RelativeLayout.LayoutParams layoutparams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         textView.setLayoutParams(layoutparams);
         textView.setText("WishList");
@@ -146,40 +129,25 @@ public class UserTasks extends AppCompatActivity{
         actionBar.setCustomView(textView);
 //        String[] items = getResources().getStringArray(R.array.drawerlistitems);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        nvDrawer = (NavigationView) findViewById(R.id.nvView);
+        setupDrawerContent(nvDrawer);
+        nvDrawer.setBackgroundColor(getResources().getColor(R.color.navdrawerbackground));
+        nvDrawer.setItemTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
+        Log.i("UserTasks","setupDrawerContentMethod");
 //        drawerlist = (ListView) findViewById(R.id.drawer_list);
         drawerLayout.setStatusBarBackgroundColor(getResources().getColor(R.color.navdrawerbackground));
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 //        nvDrawer.addHeaderView();
-//        Bundle name = getIntent().getExtras();
-        userName = wishListAppSettings.getString("name","name is missing");
-        Log.i("UserTask username",userName);
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 //                android.R.layout.simple_list_item_1, items);
 //        drawerlist.setAdapter(adapter);
-        mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
-                    R.string.drawer_open, R.string.drawer_close) {
-            /* Called when drawer is closed */
-            public void onDrawerClosed(View view) {
-                //Put your code here
-                super.onDrawerClosed(view);
-                UserTasks.this.supportInvalidateOptionsMenu();
-//                actionBar.show();
-            }
-            /* Called when a drawer is opened */
-            public void onDrawerOpened(View drawerView) {
-                //Put your code here
-                super.onDrawerOpened(drawerView);
-//                actionBar.hide();
-            }
-        };
-        drawerLayout.setDrawerListener(mDrawerToggle);
-        nvDrawer = (NavigationView) findViewById(R.id.nvView);
+        mDrawerToggle = setupDrawerToggle();
+        drawerLayout.addDrawerListener(mDrawerToggle);
         face= Typeface.createFromAsset(getAssets(), "font/Roboto-Light.ttf");
         // Setup drawer view
-        setupDrawerContent(nvDrawer);
-        nvDrawer.setBackgroundColor(getResources().getColor(R.color.navdrawerbackground));
-        nvDrawer.setItemTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
+//        drawerLayout.setDrawerListener(mDrawerToggle);
+
         View header = nvDrawer.inflateHeaderView(R.layout.navigation_drawer_header);
         headerTextView = (TextView) header.findViewById(R.id.header_text_view);
         headerTextView.setText(userName);
@@ -219,6 +187,25 @@ public class UserTasks extends AppCompatActivity{
 //            public void onTabReselected(TabLayout.Tab tab) {
 //            }
 //        });
+        usertoken = wishListAppSettings.getString("token", "token is missing");
+        Log.i("userTokenusertasks", usertoken);
+        listView = (ListView) findViewById(R.id.listView);
+        itemsArrayList = new ArrayList<User_tasks>();
+//        itemsArrayList = new ArrayList<String>();
+        mHandler = new Handler(Looper.getMainLooper());
+        todoListAdaptor = new TodoListAdaptor(this,itemsArrayList);
+//        UserItemsResponse.SavedUserItems savedUserItems;
+        FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
+        floatingActionButton.jumpDrawablesToCurrentState();
+        floatingActionButton.show();
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent userTasksIntent = new Intent(UserTasks.this, AddTasks.class);
+                startActivity(userTasksIntent);
+                finish();
+            }
+        });
         Urlendpoints urlendpoints = new Urlendpoints();
         OkHttpClient client = new OkHttpClient();
         RequestBody formBody = new FormBody.Builder()
@@ -229,7 +216,6 @@ public class UserTasks extends AppCompatActivity{
                 .url(urlendpoints.getusertasksurl())
                 .post(formBody)
                 .build();
-
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -252,7 +238,7 @@ public class UserTasks extends AppCompatActivity{
                 if(userTask.status.equals("True")){
                     for (User_tasks user_tasks : userTask.tasks) {
                         itemsArrayList.add(user_tasks);
-                        System.out.println(itemsArrayList);
+//                        System.out.println(itemsArrayList);
                     }
                 }
                 else{
@@ -273,81 +259,54 @@ public class UserTasks extends AppCompatActivity{
             }
         });
     }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Pass the event to ActionBarDrawerToggle, if it returns
-        // true, then it has handled the app icon touch event
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            switch (item.getItemId()) {
-                case android.R.id.home:
-                    drawerLayout.openDrawer(GravityCompat.START);
-                    return true;
-            }
-
-//            switch (item.getItemId()){
-//                case R.string.pending:
-//                    Toast.makeText(UserTasks.this, "pending", Toast.LENGTH_SHORT).show();
-//                    break;
-//                case R.string.completed:
-//                    Toast.makeText(UserTasks.this, "completed", Toast.LENGTH_SHORT).show();
-//                    break;
-//                case R.string.logout:
-//                    Toast.makeText(UserTasks.this, "logout", Toast.LENGTH_SHORT).show();
-//                    break;
-//            }
-            return true;
-        }
-        // Handle your other action bar items...
-        return super.onOptionsItemSelected(item);
+    private ActionBarDrawerToggle setupDrawerToggle() {
+        return new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open,  R.string.drawer_close);
     }
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
-            new NavigationView.OnNavigationItemSelectedListener() {
-                @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
-                @Override
-                public boolean onNavigationItemSelected(MenuItem menuItem) {
-                    selectDrawerItem(menuItem);
-                    return true;
-                }
-            });
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        selectDrawerItem(menuItem);
+                        return true;
+                    }
+                });
     }
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     public void selectDrawerItem(MenuItem menuItem) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
-        manager = getSupportFragmentManager();
-        transaction = manager.beginTransaction();
+        Fragment fragment = null;
+        Class fragmentClass;
         switch(menuItem.getItemId()) {
             case R.id.pending:
-                Toast.makeText(UserTasks.this, "pending", Toast.LENGTH_LONG).show();
-//                Intent pendingTasksIntent = new Intent(this,PendingTasks.class);
-//                startActivity(pendingTasksIntent);
                 listView.setVisibility(View.GONE);
-                transaction.replace(R.id.content_frame, new PendingTasks()).commit();
+                fragmentClass = PendingTasks.class;
                 break;
             case R.id.completed:
-                Toast.makeText(UserTasks.this, "completed", Toast.LENGTH_LONG).show();
-//                Intent completedTasksIntent = new Intent(this,CompletedTasks.class);
-//                startActivity(completedTasksIntent);
                 listView.setVisibility(View.GONE);
-                transaction.replace(R.id.content_frame, new CompletedTasks()).commit();
+                fragmentClass = CompletedTasks.class;
                 break;
             case R.id.logout:
-                Toast.makeText(UserTasks.this, "logout", Toast.LENGTH_LONG).show();
-                Intent logoutIntent = new Intent(this,Logout.class);
-                startActivity(logoutIntent);
+//                Intent logoutIntent = new Intent(UserTasks.this,Logout.class);
+//                startActivity(logoutIntent);
+                fragmentClass = Logout.class;
                 break;
             default:
-//                Intent intent = new Intent(this,PendingTasks.class);
-//                startActivity(intent);
                 listView.setVisibility(View.GONE);
-                transaction.replace(R.id.content_frame, new PendingTasks()).commit();
-                break;
-
+                fragmentClass = PendingTasks.class;
         }
-//        Insert the fragment by replacing any existing fragment
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 
         // Highlight the selected item has been done by NavigationView
         menuItem.setChecked(true);
@@ -357,6 +316,16 @@ public class UserTasks extends AppCompatActivity{
         drawerLayout.closeDrawers();
     }
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // The action bar home/up action should open or close the drawer.
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                drawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         mDrawerToggle.syncState();
@@ -364,6 +333,7 @@ public class UserTasks extends AppCompatActivity{
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        // Pass any configuration change to the drawer toggles
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
     @Override
@@ -371,44 +341,13 @@ public class UserTasks extends AppCompatActivity{
         super.onPause();
         wishListAppSettings = getSharedPreferences("WishListAppSettings", MODE_PRIVATE);
         usertoken = wishListAppSettings.getString("token", "token is missing");
-//        Log.i("userToken in pause", usertoken);
     }
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.menu_main, menu);
-//        this.menu = menu;
-//        return true;
-//    }
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem menuItem){
-//        switch (menuItem.getItemId()){
-//            case R.id.logout:
-//                Intent intent = new Intent(this,Logout.class);
-//                startActivity(intent);
-//                break;
-//            case R.id.item_settings:
-//                Toast.makeText(getBaseContext(), "Clicked on settings", Toast.LENGTH_LONG).show();
-//                break;
-//            case R.id.deletetask:
-//                Toast.makeText(getBaseContext(), "Clicked on Delete tasks option", Toast.LENGTH_LONG).show();
-//                break;
-//            case R.id.refresh:
-//                Intent refreshintent = getIntent();
-//                finish();
-//                startActivity(refreshintent);
-//                break;
-//            default:
-//                return super.onOptionsItemSelected(menuItem);
-//        }
-//        return true;
-//    }
     @Override
     public void onResume() {
         super.onResume();  // Always call the superclass method first
         wishListAppSettings = getSharedPreferences("WishListAppSettings", MODE_PRIVATE);
         usertoken = wishListAppSettings.getString("token", "token is missing");
-//        Log.i("Token resume addtask", usertoken);
+
     }
     @Override
     public void onBackPressed() {

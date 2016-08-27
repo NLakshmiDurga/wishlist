@@ -4,31 +4,28 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <include layout="@layout/content_user_items"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"/>
     <!-- The main content view -->
-    <FrameLayout
-        android:id="@+id/content_frame"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation = "vertical">
+        android:orientation="vertical">
 
-        <ListView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:fitsSystemWindows="true"
-            android:layout_gravity="top"
-            android:minHeight="@dimen/listviewrowheight"
-            android:id="@+id/listView"/>
-    </FrameLayout>
-
-    <!-- The navigation drawer -->
-    <!--<ListView-->
-    <!--android:id="@+id/drawer_list"-->
-    <!--android:layout_width="240dp"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_gravity="left"-->
-    <!--android:background="@color/navdrawerbackground"-->
-    <!--android:divider="@android:color/transparent"-->
-    <!--android:dividerHeight="0dp" />-->
+        <!-- The ActionBar displayed at the top -->
+        <include layout="@layout/toolbar"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"/>
+        <!-- The main content view where fragments are loaded -->
+        <FrameLayout
+            android:id="@+id/content_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </FrameLayout>
+    </LinearLayout>
     <android.support.design.widget.NavigationView
         android:id="@+id/nvView"
         android:layout_width="240dp"
@@ -38,28 +35,5 @@
         app:itemTextAppearance="@style/NavigationDrawerStyle"
         app:menu="@menu/menu_main"
         app:headerLayout="@layout/navigation_drawer_header"/>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:fabSize="normal"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="20dp"
-        app:backgroundTint="@color/colorPrimaryDark"
-        android:clickable="true"
-        android:layout_gravity="bottom|end"
-        android:src="@drawable/plus"
-        app:layout_anchorGravity="bottom|right|end"
-        android:id="@+id/fab"
-        android:elevation="2dp"
-        android:layout_alignParentRight="true"
-        tools:ignore="RtlHardcoded,UnusedAttribute"
-        android:layout_alignParentBottom="true" />
-
-</RelativeLayout>
 </android.support.v4.widget.DrawerLayout>

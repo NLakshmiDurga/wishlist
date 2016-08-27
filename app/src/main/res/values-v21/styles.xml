@@ -4,4 +4,11 @@
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="AppTheme.ActionBar" parent="Theme.AppCompat.Light">
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:navigationIcon">@color/textColorPrimary</item>
+        <!--<item name="fontPath">fonts/Roboto-Medium.ttf</item>-->
+    </style>
 </resources>

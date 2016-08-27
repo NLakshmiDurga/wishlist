@@ -6,27 +6,27 @@
     android:layout_height="match_parent">
 
     <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="50dp"
         android:id="@+id/listView"
-        android:layout_alignParentBottom="true"
-        />
+        android:layout_alignParentBottom="true" />
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="50dp"
         android:layout_height="50dp"
         app:fabSize="normal"
-        app:backgroundTint="@color/textColorPrimary"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        app:backgroundTint="@color/colorPrimaryDark"
         android:clickable="true"
         android:layout_gravity="bottom|end"
         android:src="@drawable/plus"
         app:layout_anchorGravity="bottom|right|end"
         android:id="@+id/fab"
-        android:elevation="5dp"
-        android:layout_marginRight="42dp"
-        android:layout_marginBottom="45dp"
-        android:layout_alignParentBottom="true"
+        android:elevation="2dp"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="42dp" />
+        tools:ignore="RtlHardcoded,UnusedAttribute"
+        android:layout_alignParentBottom="true" />
+
 </RelativeLayout>

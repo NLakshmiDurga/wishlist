@@ -13,12 +13,16 @@
         <item name="windowNoTitle">true</item>
         <!--<item name="android:windowActionBarOverlay">true</item>-->
     </style>
-    <style name="AppTheme.ActionBar" parent="Theme.AppCompat.Light">
+    <style name="DrawerIcon" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/textColorPrimary</item>
+    </style>
+    <style name="AppTheme.ActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="drawerArrowStyle">@style/DrawerIcon</item>
         <!--<item name="fontPath">fonts/Roboto-Medium.ttf</item>-->
     </style>
+
     <style name="NavigationHeaderStyle">
         <item name="android:fontFamily" tools:targetApi="jelly_bean">font/Roboto-Light.ttf</item>
     </style>

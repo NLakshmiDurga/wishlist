@@ -108,10 +108,11 @@ public class PendingTasks extends Fragment {
     private Handler mHandler;
     ArrayList<User_tasks> itemsArrayList;
     ListView listView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.completedtask, container, false);
-        listView = (ListView) rootView.findViewById(R.id.completetasklistview);
+        View rootView = inflater.inflate(R.layout.pendingtask, container, false);
+        listView = (ListView) rootView.findViewById(R.id.pendingtasklistview);
         return rootView;
     }
     @Override
