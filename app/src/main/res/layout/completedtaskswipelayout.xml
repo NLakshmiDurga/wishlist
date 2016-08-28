@@ -1,65 +1,76 @@
 <com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:id="@+id/compltetaskswipe"
-    android:layout_height="80dp">
+    android:layout_height="60dp">
 
     <LinearLayout
-        android:id="@+id/completedtaskbottomwrapper"
-        android:layout_width="160dp"
-        android:layout_height="match_parent"
-        android:weightSum="1"
-        android:background="@color/navdrawerbackground">
+        android:tag="Bottom4"
+        android:id="@+id/bottomwrappercompletedtasks"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Not Completed"
-            android:layout_weight="1"
-            android:gravity="center"
+            android:id="@+id/undo"
+            android:text="Undo"
+            android:layout_width="70dp"
             android:layout_gravity="center"
-            android:textSize="20dp"
-            android:background="@color/navdrawerbackground"
-            android:id="@+id/notcompleted"
-            android:clickable="true"
-            android:textColor="@color/colorPrimary"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:weightSum="1"
-        android:id="@+id/completedtaskbottomwrapper1"
-        android:background="@color/textColorPrimary">
-
-        <TextView
-            android:layout_width="wrap_content"
+            android:background="@color/textColorPrimary"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:layout_height="match_parent" />
+        <View
+            android:layout_width="1dp"
             android:layout_height="match_parent"
+            android:background="@android:color/darker_gray"
+            android:id="@+id/dividerview" />
+        <TextView
             android:id="@+id/delete"
             android:text="Delete"
-            android:textSize="20dp"
-            android:layout_weight="1"
-            android:gravity="center"
+            android:layout_width="70dp"
             android:layout_gravity="center"
-            android:clickable="true"
-            android:textColor="@color/colorPrimary"
-            android:background="@color/textColorPrimary" />
-
+            android:background="@color/textColorPrimary"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:layout_height="match_parent" />
     </LinearLayout>
+    <!--<LinearLayout-->
+        <!--android:layout_width="160dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:weightSum="1"-->
+        <!--android:id="@+id/completedtaskbottomwrapper1"-->
+        <!--android:background="@color/textColorPrimary">-->
 
-    <LinearLayout
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:id="@+id/delete"-->
+            <!--android:text="Delete"-->
+            <!--android:textSize="20dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:clickable="true"-->
+            <!--android:textColor="@color/colorPrimary"-->
+            <!--android:background="@color/textColorPrimary" />-->
+
+    <!--</LinearLayout>-->
+
+    <RelativeLayout
         android:padding="10dp"
         android:id="@+id/surface_layer"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <TextView
-            android:textColor="@color/colorAccent"
             android:layout_width="match_parent"
-            android:layout_height="34dp"
-            android:text="Task"
-            android:textSize="15dp"
-            android:padding="5dp"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_marginStart="60dp"
+            android:textColor="@color/colorAccent"
+            android:padding="10dp"
             android:id="@+id/task"
-            />
-    </LinearLayout>
+            android:layout_marginLeft="60dp"
+            android:layout_alignParentTop="true" />
+    </RelativeLayout>
 </com.daimajia.swipe.SwipeLayout>

@@ -2,6 +2,7 @@ package com.example.murthyavanithsa.wishlistapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -31,17 +32,16 @@ import okhttp3.Response;
 /**
  * Created by durga on 21/2/16.
  */
-class CompletedTaskResponse{
-    String status;
-    String message;
-}
+
 public class CompletedTaskAdapter extends ArrayAdapter<User_tasks> {
     ArrayList<User_tasks> itemsArrayList;
     Handler handler;
     String token;
+    Typeface typeface;
     SharedPreferences sharedPreferences;
-    public CompletedTaskAdapter(Context context,ArrayList<User_tasks> itemsArrayList){
+    public CompletedTaskAdapter(Context context, ArrayList<User_tasks> itemsArrayList, Typeface typeface){
         super(context,0,itemsArrayList);
+        this.typeface = typeface;
         this.itemsArrayList = itemsArrayList;
     }
     public View getView(final int position, View convertView, ViewGroup parent){
@@ -56,8 +56,8 @@ public class CompletedTaskAdapter extends ArrayAdapter<User_tasks> {
         token = sharedPreferences.getString("token", "token is missing");
         SwipeLayout swipeLayout = (SwipeLayout) convertView.findViewById(R.id.compltetaskswipe);
         swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
-        swipeLayout.addDrag(SwipeLayout.DragEdge.Left, convertView.findViewById(R.id.completedtaskbottomwrapper1));
-        swipeLayout.addDrag(SwipeLayout.DragEdge.Right, convertView.findViewById(R.id.completedtaskbottomwrapper));
+//        swipeLayout.addDrag(SwipeLayout.DragEdge.Left, convertView.findViewById(R.id.completedtaskbottomwrapper1));
+        swipeLayout.addDrag(SwipeLayout.DragEdge.Right, convertView.findViewById(R.id.bottomwrappercompletedtasks));
         swipeLayout.addSwipeListener(new SimpleSwipeListener() {
             @Override
             public void onOpen(SwipeLayout layout) {
@@ -70,8 +70,6 @@ public class CompletedTaskAdapter extends ArrayAdapter<User_tasks> {
                 Toast.makeText(getContext(), "DoubleClick", Toast.LENGTH_SHORT).show();
             }
         });
-        final ArrayList doneArrayList = new ArrayList();
-        final ArrayList deleteArrayList = new ArrayList();
         final int taskposition = getPosition(task1);
         convertView.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,7 +120,7 @@ public class CompletedTaskAdapter extends ArrayAdapter<User_tasks> {
 //                });
             }
         });
-        convertView.findViewById(R.id.notcompleted).setOnClickListener(new View.OnClickListener() {
+        convertView.findViewById(R.id.undo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "clicked on done", Toast.LENGTH_SHORT).show();

@@ -12,21 +12,4 @@
         android:id="@+id/listView"
         android:layout_alignParentBottom="true" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:fabSize="normal"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="20dp"
-        app:backgroundTint="@color/colorPrimaryDark"
-        android:clickable="true"
-        android:layout_gravity="bottom|end"
-        android:src="@drawable/plus"
-        app:layout_anchorGravity="bottom|right|end"
-        android:id="@+id/fab"
-        android:elevation="2dp"
-        android:layout_alignParentRight="true"
-        tools:ignore="RtlHardcoded,UnusedAttribute"
-        android:layout_alignParentBottom="true" />
-
 </RelativeLayout>

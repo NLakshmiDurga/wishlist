@@ -2,6 +2,7 @@ package com.example.murthyavanithsa.wishlistapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -109,11 +110,27 @@ import static android.content.Context.MODE_PRIVATE;
 //    }
 //
 //}
+//class UserTaskResponse {
+//    String status;
+//    String message;
+//    User_tasks[] tasks;
+//
+//}
+//class User_tasks_response{
+//    int task_id;
+//    String task;
+//    String status;
+//    public User_tasks_response(int task_id,String task,String status){
+//        this.task_id = task_id;
+//        this.task = task;
+//        this.status = status;
+//    }
+//}
 public class CompletedTasks extends Fragment {
     SharedPreferences wishListAppSettings;
     String usertoken;
     //    TodoListAdaptor todoListAdaptor;
-    TodoListAdaptor completedTaskAdapter;
+    CompletedTaskAdapter completedTaskAdapter;
     private Handler mHandler;
     ArrayList<User_tasks> itemsArrayList;
     ListView listView;
@@ -131,12 +148,12 @@ public class CompletedTasks extends Fragment {
         usertoken = wishListAppSettings.getString("token", "token is missing");
         Log.i("userTokencompletedtask", usertoken);
         itemsArrayList = new ArrayList<User_tasks>();
-
+        Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(),"font/Roboto-Light.ttf");
 //        itemsArrayList = new ArrayList<String>();
         mHandler = new Handler(Looper.getMainLooper());
 //        UserItemsResponse.SavedUserItems savedUserItems;
 //        todoListAdaptor = new TodoListAdaptor(getContext(), itemsArrayList);
-        completedTaskAdapter = new TodoListAdaptor(getContext(),itemsArrayList);
+        completedTaskAdapter = new CompletedTaskAdapter(getContext(),itemsArrayList,typeface);
         Urlendpoints urlendpoints = new Urlendpoints();
         OkHttpClient client = new OkHttpClient();
         RequestBody formBody = new FormBody.Builder()

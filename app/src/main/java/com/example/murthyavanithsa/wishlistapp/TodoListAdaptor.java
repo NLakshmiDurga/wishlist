@@ -2,6 +2,7 @@ package com.example.murthyavanithsa.wishlistapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
+import com.google.android.gms.plus.model.people.Person;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -33,11 +35,13 @@ import okhttp3.Response;
  */
 public class TodoListAdaptor extends ArrayAdapter<User_tasks> {
     ArrayList<User_tasks> itemsArrayList;
+    Typeface typeface;
     Handler handler;
     String token;
     SharedPreferences sharedPreferences;
-    public TodoListAdaptor(Context context,ArrayList<User_tasks> itemsArrayList){
+    public TodoListAdaptor(Context context,ArrayList<User_tasks> itemsArrayList, Typeface typeface){
         super(context,0,itemsArrayList);
+        this.typeface = typeface;
         this.itemsArrayList = itemsArrayList;
     }
     public View getView(final int position, View convertView, ViewGroup parent){

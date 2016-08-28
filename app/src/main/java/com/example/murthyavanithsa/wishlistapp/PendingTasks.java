@@ -1,6 +1,7 @@
 package com.example.murthyavanithsa.wishlistapp;
 
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -120,10 +121,11 @@ public class PendingTasks extends Fragment {
         super.onCreate(savedInstanceState);
         wishListAppSettings = getActivity().getSharedPreferences("WishListAppSettings", MODE_PRIVATE);
         usertoken = wishListAppSettings.getString("token", "token is missing");
+        Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(),"font/Roboto-Light.ttf");
         Log.i("userTokencompletedtask", usertoken);
         itemsArrayList = new ArrayList<User_tasks>();
         mHandler = new Handler(Looper.getMainLooper());
-        todoListAdaptor = new TodoListAdaptor(getContext(), itemsArrayList);
+        todoListAdaptor = new TodoListAdaptor(getContext(), itemsArrayList, typeface);
         Urlendpoints urlendpoints = new Urlendpoints();
         OkHttpClient client = new OkHttpClient();
         RequestBody formBody = new FormBody.Builder()

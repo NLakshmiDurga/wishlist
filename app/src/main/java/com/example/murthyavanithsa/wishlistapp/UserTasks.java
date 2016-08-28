@@ -1,5 +1,4 @@
 package com.example.murthyavanithsa.wishlistapp;
-
 import android.annotation.TargetApi;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
@@ -73,7 +72,7 @@ class UserTask {
     User_tasks[] tasks;
 
 }
-class User_tasks{
+class User_tasks {
     int task_id;
     String task;
     String status;
@@ -85,26 +84,17 @@ class User_tasks{
 }
 
 public class UserTasks extends AppCompatActivity{
-    ArrayList<User_tasks> itemsArrayList;
-    ListView listView,drawerlist;
+    private ArrayList<User_tasks> itemsArrayList;
+    private ListView listView,drawerlist;
     //    ArrayAdapter arrayAdapter;
-    Fragment newFragment;
-    FragmentManager manager;
-    FragmentTransaction transaction;
-    TodoListAdaptor todoListAdaptor;
+    private TodoListAdaptor todoListAdaptor;
     private Handler mHandler;
-    ActionBarDrawerToggle mDrawerToggle;
-    String userName;
-    Typeface face;
-    Toolbar toolbar;
-    TextView headerTextView;
-    static String usertoken;
-    protected DrawerLayout drawerLayout;
-    private NavigationView nvDrawer;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private Toolbar toolbar;
+    private static String usertoken;
+    private DrawerLayout drawerLayout;
     private static final String TAG = "UserTasks";
-    SharedPreferences wishListAppSettings;
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
+    private SharedPreferences wishListAppSettings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,8 +102,8 @@ public class UserTasks extends AppCompatActivity{
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         wishListAppSettings = getSharedPreferences("WishListAppSettings", MODE_PRIVATE);
-        userName = wishListAppSettings.getString("name","name is missing");
-        Log.i("UserTask username",userName);
+        String userName = wishListAppSettings.getString("name", "name is missing");
+        Log.i("UserTask username", userName);
         TextView textView = new TextView(getApplicationContext());
         final ActionBar actionBar = getSupportActionBar();
         RelativeLayout.LayoutParams layoutparams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -121,15 +111,16 @@ public class UserTasks extends AppCompatActivity{
         textView.setText("WishList");
         textView.setTextSize(20);
         //To set font created a directory called assets in that font directory is created.
-        face= Typeface.createFromAsset(getAssets(), "font/Roboto-Medium.ttf");
+        Typeface face = Typeface.createFromAsset(getAssets(), "font/Roboto-Medium.ttf");
         textView.setTypeface(face);
         textView.setTextColor(getResources().getColor(R.color.textColorPrimary));
 //        textView.setGravity(Gravity.CENTER);
+        assert actionBar != null;
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         actionBar.setCustomView(textView);
 //        String[] items = getResources().getStringArray(R.array.drawerlistitems);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        nvDrawer = (NavigationView) findViewById(R.id.nvView);
+        NavigationView nvDrawer = (NavigationView) findViewById(R.id.nvView);
         setupDrawerContent(nvDrawer);
         nvDrawer.setBackgroundColor(getResources().getColor(R.color.navdrawerbackground));
         nvDrawer.setItemTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
@@ -144,12 +135,12 @@ public class UserTasks extends AppCompatActivity{
 //        drawerlist.setAdapter(adapter);
         mDrawerToggle = setupDrawerToggle();
         drawerLayout.addDrawerListener(mDrawerToggle);
-        face= Typeface.createFromAsset(getAssets(), "font/Roboto-Light.ttf");
+        face = Typeface.createFromAsset(getAssets(), "font/Roboto-Light.ttf");
         // Setup drawer view
 //        drawerLayout.setDrawerListener(mDrawerToggle);
 
         View header = nvDrawer.inflateHeaderView(R.layout.navigation_drawer_header);
-        headerTextView = (TextView) header.findViewById(R.id.header_text_view);
+        TextView headerTextView = (TextView) header.findViewById(R.id.header_text_view);
         headerTextView.setText(userName);
         headerTextView.setTypeface(face);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -193,7 +184,7 @@ public class UserTasks extends AppCompatActivity{
         itemsArrayList = new ArrayList<User_tasks>();
 //        itemsArrayList = new ArrayList<String>();
         mHandler = new Handler(Looper.getMainLooper());
-        todoListAdaptor = new TodoListAdaptor(this,itemsArrayList);
+        todoListAdaptor = new TodoListAdaptor(this,itemsArrayList, face);
 //        UserItemsResponse.SavedUserItems savedUserItems;
         FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
         floatingActionButton.jumpDrawablesToCurrentState();
@@ -265,7 +256,6 @@ public class UserTasks extends AppCompatActivity{
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
-                    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         selectDrawerItem(menuItem);
@@ -273,18 +263,18 @@ public class UserTasks extends AppCompatActivity{
                     }
                 });
     }
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     public void selectDrawerItem(MenuItem menuItem) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
         Class fragmentClass;
         switch(menuItem.getItemId()) {
             case R.id.pending:
+                Toast.makeText(UserTasks.this,"pending",Toast.LENGTH_SHORT).show();
                 listView.setVisibility(View.GONE);
                 fragmentClass = PendingTasks.class;
                 break;
             case R.id.completed:
+                Toast.makeText(UserTasks.this,"completed",Toast.LENGTH_SHORT).show();
                 listView.setVisibility(View.GONE);
                 fragmentClass = CompletedTasks.class;
                 break;

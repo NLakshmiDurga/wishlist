@@ -2,6 +2,7 @@ package com.example.murthyavanithsa.wishlistapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -41,8 +42,10 @@ public class AddTasks extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_items);
+        Typeface typeface = Typeface.createFromAsset(getAssets(),"font/Roboto-Light.ttf");
         mHandler = new Handler(Looper.getMainLooper());
         editText = (EditText) findViewById(R.id.addtask);
+        editText.setTypeface(typeface);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 //        getSupportActionBar().setTitle(R.string.app_name);

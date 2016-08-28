@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1039967043535",
+    "project_id": "wishlist-1384"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1039967043535:android:6f9fb9d485f02c04",
+        "android_client_info": {
+          "package_name": "com.example.murthyavanithsa.wishlistapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1039967043535-8mh5bvi1dlvseb799jtr6d2des0260jk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.murthyavanithsa.wishlistapp",
+            "certificate_hash": "5789A7C702C4045738EB7DDE219D70F1C7B975DC"
+          }
+        },
+        {
+          "client_id": "1039967043535-bam3bmts2elrh6uks4jnb6op1hcvebr0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjPRgtIwA3Y834h8CVTE_aSRdBQ3jlRk8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

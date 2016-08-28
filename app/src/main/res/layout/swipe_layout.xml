@@ -106,11 +106,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Task"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:layout_marginStart="60dp"
             android:textColor="@color/colorAccent"
-            android:padding="5dp"
+            android:padding="10dp"
             android:id="@+id/task"
             android:layout_marginLeft="60dp"
             android:layout_alignParentTop="true" />

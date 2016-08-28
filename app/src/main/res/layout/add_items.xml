@@ -24,7 +24,7 @@
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="Add your task"
+            android:hint="Type your task ...."
             android:background="#00000000"
             android:textSize="30dp"
             android:inputType="textVisiblePassword"
