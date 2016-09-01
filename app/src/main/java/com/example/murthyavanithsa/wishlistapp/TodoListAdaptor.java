@@ -49,6 +49,7 @@ public class TodoListAdaptor extends ArrayAdapter<User_tasks> {
         convertView = LayoutInflater.from(getContext()).inflate(R.layout.swipe_layout, parent, false);
         final TextView textView = (TextView) convertView.findViewById(R.id.task);
         textView.setText(task1.task);
+        textView.setTypeface(typeface);
         handler = new Handler(Looper.getMainLooper());
         final Urlendpoints urlendpoints = new Urlendpoints();
         final OkHttpClient client = new OkHttpClient();

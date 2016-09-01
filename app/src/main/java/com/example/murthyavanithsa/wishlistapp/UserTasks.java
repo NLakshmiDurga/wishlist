@@ -123,7 +123,7 @@ public class UserTasks extends AppCompatActivity{
         NavigationView nvDrawer = (NavigationView) findViewById(R.id.nvView);
         setupDrawerContent(nvDrawer);
         nvDrawer.setBackgroundColor(getResources().getColor(R.color.navdrawerbackground));
-        nvDrawer.setItemTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
+        nvDrawer.setItemTextColor(ColorStateList.valueOf(getResources().getColor(R.color.textColorSecondary)));
         Log.i("UserTasks","setupDrawerContentMethod");
 //        drawerlist = (ListView) findViewById(R.id.drawer_list);
         drawerLayout.setStatusBarBackgroundColor(getResources().getColor(R.color.navdrawerbackground));

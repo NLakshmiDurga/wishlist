@@ -13,6 +13,7 @@
     <string name = "pending">Pending</string>
     <string name = "completed">Completed</string>
     <string name = "logout">Logout</string>
+    z
     <string-array name="drawerlistitems" >
         <item name = "pending">@string/pending</item>
         <item name = "completed">@string/completed</item>

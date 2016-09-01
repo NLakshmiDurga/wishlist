@@ -49,6 +49,7 @@ public class SignInActivity extends AppCompatActivity implements
         View.OnClickListener  {
     EditText editemailtext;
     EditText editpasswordtext;
+    Typeface face;
     Handler handler;
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
@@ -60,23 +61,28 @@ public class SignInActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_layout);
-        TextView textView = new TextView(getApplicationContext());
-        ActionBar actionBar = getSupportActionBar();
-        RelativeLayout.LayoutParams layoutparams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        textView.setLayoutParams(layoutparams);
-        textView.setText("WishList");
-        textView.setTextSize(20);
+        setContentView(R.layout.loginlayout);
+
+//        ActionBar actionBar = getSupportActionBar();
+//        RelativeLayout.LayoutParams layoutparams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+//        textView.setLayoutParams(layoutparams);
+//        textView.setText("WishList");
+//        textView.setTextSize(20);
+
         //To set font created a directory called assets in that font directory is created.
-        Typeface face= Typeface.createFromAsset(getAssets(), "font/Roboto-Medium.ttf");
+        face= Typeface.createFromAsset(getAssets(), "font/Roboto-Light.ttf");
+        TextView textView = (TextView) findViewById(R.id.listtv);
         textView.setTypeface(face);
-        textView.setTextColor(getResources().getColor(R.color.textColorPrimary));
-        textView.setGravity(Gravity.CENTER);
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        actionBar.setCustomView(textView);
+        textView = (TextView) findViewById(R.id.logintv);
+        textView.setTypeface(face);
+//        textView.setTextColor(getResources().getColor(R.color.textColorPrimary));
+//        textView.setGravity(Gravity.CENTER);
+//        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+//        actionBar.setCustomView(textView);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
         TextView signuptextview= (TextView) findViewById(R.id.textviewsignup);
+        signuptextview.setTypeface(face);
         signuptextview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,7 +94,10 @@ public class SignInActivity extends AppCompatActivity implements
         handler = new Handler(Looper.getMainLooper());
         editemailtext = (EditText) findViewById(R.id.emailid);
         editpasswordtext = (EditText) findViewById(R.id.password);
+        editemailtext.setTypeface(face);
+        editpasswordtext.setTypeface(face);
         Button loginbutton = (Button) findViewById(R.id.loginButton);
+        loginbutton.setTypeface(face);
         loginbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,6 +134,7 @@ public class SignInActivity extends AppCompatActivity implements
         SignInButton signInButton = (SignInButton) findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
         signInButton.setScopes(gso.getScopeArray());
+        setGooglePlusButtonText(signInButton,"Login with Google");
         findViewById(R.id.sign_in_button).setOnClickListener(this);
     }
     private void handleSignInResult(GoogleSignInResult result) {
@@ -159,7 +169,20 @@ public class SignInActivity extends AppCompatActivity implements
         // be available.
         Log.d(TAG, "onConnectionFailed:" + connectionResult);
     }
+    private void setGooglePlusButtonText(SignInButton signInButton, String buttonText) {
+        // Find the TextView that is inside of the SignInButton and set its text
+        for (int i = 0; i < signInButton.getChildCount(); i++) {
+            View v = signInButton.getChildAt(i);
 
+            if (v instanceof TextView) {
+                TextView tv = (TextView) v;
+                tv.setText(buttonText);
+                tv.setTypeface(face);
+                tv.setTextSize(20);
+                return;
+            }
+        }
+    }
     private void signIn() {
         Auth.GoogleSignInApi.signOut(mGoogleApiClient);
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);

@@ -2,6 +2,7 @@ package com.example.murthyavanithsa.wishlistapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.Looper;
@@ -49,6 +50,8 @@ public class CompletedTaskAdapter extends ArrayAdapter<User_tasks> {
         convertView = LayoutInflater.from(getContext()).inflate(R.layout.completedtaskswipelayout, parent, false);
         final TextView textViewdone = (TextView) convertView.findViewById(R.id.task);
         textViewdone.setText(task1.task);
+        textViewdone.setTypeface(typeface);
+        textViewdone.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
         handler = new Handler(Looper.getMainLooper());
         final Urlendpoints urlendpoints = new Urlendpoints();
         final OkHttpClient client = new OkHttpClient();
@@ -123,7 +126,7 @@ public class CompletedTaskAdapter extends ArrayAdapter<User_tasks> {
         convertView.findViewById(R.id.undo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "clicked on done", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "clicked on undo", Toast.LENGTH_SHORT).show();
 //                if (Integer.toString(taskposition)!=null){
 //                    doneArrayList.add(taskposition);
 //                    Log.i("done taskid",doneArrayList.toString());

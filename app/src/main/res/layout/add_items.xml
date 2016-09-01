@@ -29,7 +29,7 @@
             android:textSize="30dp"
             android:inputType="textVisiblePassword"
             android:id="@+id/addtask"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/textColorSecondary"
             android:layout_marginTop="40dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"

@@ -13,7 +13,7 @@
         <item
             android:id="@+id/completed"
             android:title="@string/completed"
-            android:icon="@drawable/completed"
+            android:icon="@drawable/competed"
             android:checkable="true"
             android:orderInCategory="100"
             android:visible="true"/>

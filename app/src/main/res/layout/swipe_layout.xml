@@ -2,7 +2,7 @@
 <com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:id="@+id/swipe"
-    android:layout_height="60dp">
+    android:layout_height="50dp">
     <LinearLayout
         android:tag="Bottom4"
         android:id="@+id/bottomwrapper"
@@ -11,7 +11,7 @@
 
         <ImageView
             android:id="@+id/done"
-            android:src="@drawable/completed"
+            android:src="@drawable/complete2"
             android:layout_width="70dp"
             android:layout_gravity="center"
             android:background="@color/textColorPrimary"
@@ -25,7 +25,7 @@
             android:id="@+id/dividerview" />
         <ImageView
             android:id="@+id/delete"
-            android:src="@drawable/pending"
+            android:src="@drawable/delete"
             android:layout_width="70dp"
             android:layout_gravity="center"
             android:background="@color/textColorPrimary"
@@ -108,8 +108,8 @@
             android:layout_height="wrap_content"
             android:textSize="15sp"
             android:layout_marginStart="60dp"
-            android:textColor="@color/colorAccent"
-            android:padding="10dp"
+            android:textColor="@color/textColorSecondary"
+            android:padding="5dp"
             android:id="@+id/task"
             android:layout_marginLeft="60dp"
             android:layout_alignParentTop="true" />

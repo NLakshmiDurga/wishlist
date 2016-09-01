@@ -2,10 +2,12 @@
 <resources>
     <color name="colorPrimary">#499483</color>
     <color name="colorPrimaryDark">#499483</color>
-    <color name="colorAccent">#6D7361</color>
+    <color name="colorAccent">#f9f9f9</color>
     <color name="textColorPrimary">#ECE2BD</color>
     <color name="navdrawerbackground">#f8f2de</color>
     <color name="divider">#DBDBC1</color>
+    <color name="textcolor">#e7e70d</color>
+    <color name="textColorSecondary">#6D7361</color>
 
 
 </resources>

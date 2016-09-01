@@ -50,41 +50,49 @@ class SignUpResponse{
     String existemailid;
 }
 public class SignUp extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,View.OnClickListener {
-    EditText editnametext;
-    EditText editemailtext;
-    EditText editpasswordtext;
-    String username,emailid,password,type;
-    SharedPreferences wishlistappsettings;
+    private EditText editnametext, editemailtext, editpasswordtext;
+    private String username,emailid,password,type;
+    private SharedPreferences wishlistappsettings;
+    private Typeface face;
     private static final String TAG = "SignUpActivity";
     private static final int RC_SIGN_IN = 9001;
     private GoogleApiClient mGoogleApiClient;
-    final Urlendpoints urlendpoints = new Urlendpoints();
-    final OkHttpClient client = new OkHttpClient();
-    Handler handler;
-    String LOG_LABEL="SignUp";
+    private final Urlendpoints urlendpoints = new Urlendpoints();
+    private final OkHttpClient client = new OkHttpClient();
+    private Handler handler;
+    private String LOG_LABEL="SignUp";
+    private TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.sign_up);
-        TextView textView = new TextView(getApplicationContext());
-        ActionBar actionBar = getSupportActionBar();
-        RelativeLayout.LayoutParams layoutparams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        textView.setLayoutParams(layoutparams);
-        textView.setText("WishList");
-        textView.setTextSize(20);
+        face = Typeface.createFromAsset(getAssets(), "font/Roboto-Light.ttf");
+//        textView = new TextView(getApplicationContext());
+//        ActionBar actionBar = getSupportActionBar();
+//        RelativeLayout.LayoutParams layoutparams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+//        textView.setLayoutParams(layoutparams);
+//        textView.setText("WishList");
+//        textView.setTextSize(20);
         //To set font created a directory called assets in that font directory is created.
-        Typeface face= Typeface.createFromAsset(getAssets(), "font/Roboto-Medium.ttf");
+//        textView.setTypeface(face);
+//        textView.setTextColor(getResources().getColor(R.color.textColorPrimary));
+//        textView.setGravity(Gravity.CENTER);
+//        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+//        actionBar.setCustomView(textView);
+        textView = (TextView) findViewById(R.id.listtv);
         textView.setTypeface(face);
-        textView.setTextColor(getResources().getColor(R.color.textColorPrimary));
-        textView.setGravity(Gravity.CENTER);
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        actionBar.setCustomView(textView);
+        textView = (TextView) findViewById(R.id.signuptv);
+        textView.setTypeface(face);
         handler = new Handler(Looper.getMainLooper());
         editnametext = (EditText) findViewById(R.id.username);
-        editemailtext = (EditText) findViewById(R.id.signupemailid);
-        editpasswordtext = (EditText) findViewById(R.id.signuppassword);
+        editemailtext = (EditText) findViewById(R.id.emailid);
+        editpasswordtext = (EditText) findViewById(R.id.password);
+        editnametext.setTypeface(face);
+        editemailtext.setTypeface(face);
+        editpasswordtext.setTypeface(face);
         TextView textViewtosignin = (TextView) findViewById(R.id.textviewtosignin);
+        textViewtosignin.setTypeface(face);
         textViewtosignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,6 +100,7 @@ public class SignUp extends AppCompatActivity implements GoogleApiClient.OnConne
             }
         });
         Button button = (Button) findViewById(R.id.signupbutton);
+        button.setTypeface(face);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,11 +139,12 @@ public class SignUp extends AppCompatActivity implements GoogleApiClient.OnConne
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-        SignInButton signInButton = (SignInButton) findViewById(R.id.signupgooglebutton);
+        SignInButton signInButton = (SignInButton) findViewById(R.id.sign_up_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
         signInButton.setScopes(gso.getScopeArray());
-        setGooglePlusButtonText(signInButton,"Signup with google");
-        findViewById(R.id.signupgooglebutton).setOnClickListener(this);
+        setGooglePlusButtonText(signInButton,"Signup with Google");
+//        signInButton.setColorScheme(getResources().getColor(R.color.colorAccent));
+        findViewById(R.id.sign_up_button).setOnClickListener(this);
 
     }
 
@@ -182,7 +192,7 @@ public class SignUp extends AppCompatActivity implements GoogleApiClient.OnConne
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    protected void setGooglePlusButtonText(SignInButton signInButton, String buttonText) {
+    private void setGooglePlusButtonText(SignInButton signInButton, String buttonText) {
         // Find the TextView that is inside of the SignInButton and set its text
         for (int i = 0; i < signInButton.getChildCount(); i++) {
             View v = signInButton.getChildAt(i);
@@ -190,6 +200,8 @@ public class SignUp extends AppCompatActivity implements GoogleApiClient.OnConne
             if (v instanceof TextView) {
                 TextView tv = (TextView) v;
                 tv.setText(buttonText);
+                tv.setTypeface(face);
+                tv.setTextSize(20);
                 return;
             }
         }
@@ -198,7 +210,7 @@ public class SignUp extends AppCompatActivity implements GoogleApiClient.OnConne
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.signupgooglebutton:
+            case R.id.sign_up_button:
                 signIn();
                 break;
         }
