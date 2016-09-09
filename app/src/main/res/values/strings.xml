@@ -13,6 +13,15 @@
     <string name = "pending">Pending</string>
     <string name = "completed">Completed</string>
     <string name = "logout">Logout</string>
+    <string name="wish">Wish</string>
+    <string name="list">List</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="login">Login</string>
+    <string name="emailid">Emailid</string>
+    <string name="password">Password</string>
+    <string name="not_a_member">Not a member?</string>
+    <string name="username">Username</string>
+    <string name="already_a_user">Already a user?</string>
     z
     <string-array name="drawerlistitems" >
         <item name = "pending">@string/pending</item>

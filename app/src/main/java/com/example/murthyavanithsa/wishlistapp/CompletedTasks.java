@@ -140,7 +140,7 @@ public class CompletedTasks extends Fragment {
         listView = (ListView) rootView.findViewById(R.id.completetasklistview);
         return rootView;
     }
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -204,5 +204,4 @@ public class CompletedTasks extends Fragment {
             }
         });
     }
-
 }

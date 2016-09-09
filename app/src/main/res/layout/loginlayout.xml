@@ -7,10 +7,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Task"
-        android:layout_marginLeft="110dp"
+        android:text="@string/wish"
         android:textSize="30dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginLeft="120sp"
+        android:layout_marginTop="20sp"
         android:textColor="@color/textcolor"
         android:textStyle="bold"
         android:id="@+id/tasktv" />
@@ -18,85 +18,78 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="List"
-        android:textSize="30dp"
-        android:layout_marginTop="40dp"
+        android:text="@string/list"
+        android:textSize="30sp"
+        android:layout_marginTop="20sp"
         android:textColor="@color/colorAccent"
-        android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/tasktv"
         android:layout_toEndOf="@+id/tasktv"
         android:id="@+id/listtv" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
-        android:textSize="20dp"
+        android:text="@string/login"
+        android:layout_marginTop="20sp"
+        android:textSize="20sp"
         android:textColor="@color/textColorPrimary"
         android:id="@+id/logintv"
         android:layout_below="@+id/tasktv"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="140dp"
-        android:layout_marginRight="57dp"/>
+        android:layout_centerHorizontal="true"/>
     <EditText
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:id="@id/emailid"
-        android:hint="Emailid"
+        android:hint="@string/emailid"
+        android:layout_marginTop="20sp"
         android:theme="@style/MyEditTextTheme"
         android:textColor="@color/colorAccent"
         android:textColorHint="@color/textColorPrimary"
-        android:layout_marginTop="21dp"
         android:layout_below="@+id/logintv"
-        android:layout_marginLeft="57dp"
-        android:layout_marginRight="57dp"
+        android:layout_centerHorizontal="true"
         />
 
     <EditText
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:id="@id/password"
-        android:hint="Password"
+        android:hint="@string/password"
+        android:layout_marginTop="20sp"
         android:theme="@style/MyEditTextTheme"
         android:textColorHighlight="@color/colorAccent"
-        android:layout_marginTop="31dp"
         android:textColorHint="@color/textColorPrimary"
         android:layout_below="@+id/emailid"
-        android:layout_marginLeft="57dp"
-        android:layout_marginRight="57dp" />
+        android:layout_centerHorizontal="true" />
     <Button
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:id="@+id/loginButton"
-        android:text="Login"
+        android:layout_marginTop="20sp"
+        android:text="@string/login"
         android:textAllCaps="false"
         android:textSize="25dp"
         android:textColor="@color/textColorSecondary"
-        android:fontFamily="@style/NavigationHeaderStyle"
         android:background="@color/textColorPrimary"
-        android:layout_marginTop="42dp"
         android:layout_below="@+id/password"
-        android:layout_alignLeft="@+id/sign_in_button"
-        android:layout_alignStart="@+id/sign_in_button" />
+        android:layout_centerHorizontal="true" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
         android:layout_width="250dp"
         android:layout_height="60dp"
+        android:layout_marginTop="20sp"
         android:visibility="visible"
-        android:layout_marginTop="17dp"
         android:layout_below="@+id/loginButton"
-        android:layout_marginLeft="57dp"
-        android:layout_marginRight="50dp" />
+        android:layout_centerHorizontal="true" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@id/textviewsignup"
+        android:layout_marginTop="20sp"
         android:textSize="25dp"
-        android:text="Not a member?"
+        android:text="@string/not_a_member"
         android:textColor="@color/textColorPrimary"
         android:layout_below="@id/sign_in_button"
-        android:layout_marginLeft="110dp"
-        android:layout_marginTop="15dp"/>
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

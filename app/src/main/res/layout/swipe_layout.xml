@@ -2,7 +2,7 @@
 <com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:id="@+id/swipe"
-    android:layout_height="50dp">
+    android:layout_height="60dp">
     <LinearLayout
         android:tag="Bottom4"
         android:id="@+id/bottomwrapper"

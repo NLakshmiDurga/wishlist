@@ -1,14 +1,18 @@
 package com.example.murthyavanithsa.wishlistapp;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,17 +38,21 @@ import okhttp3.Response;
  * Created by durga on 21/2/16.
  */
 public class TodoListAdaptor extends ArrayAdapter<User_tasks> {
-    ArrayList<User_tasks> itemsArrayList;
-    Typeface typeface;
-    Handler handler;
-    String token;
-    SharedPreferences sharedPreferences;
+    private ArrayList<User_tasks> itemsArrayList;
+    private Typeface typeface;
+    private Handler handler;
+    private String token;
+    private boolean isOpenSwipeLayout;
+    private SwipeLayout swipeLayout;
+    private SharedPreferences sharedPreferences;
     public TodoListAdaptor(Context context,ArrayList<User_tasks> itemsArrayList, Typeface typeface){
         super(context,0,itemsArrayList);
         this.typeface = typeface;
         this.itemsArrayList = itemsArrayList;
     }
-    public View getView(final int position, View convertView, ViewGroup parent){
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    @NonNull
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent){
         final User_tasks task1 = getItem(position);
         convertView = LayoutInflater.from(getContext()).inflate(R.layout.swipe_layout, parent, false);
         final TextView textView = (TextView) convertView.findViewById(R.id.task);
@@ -55,15 +63,32 @@ public class TodoListAdaptor extends ArrayAdapter<User_tasks> {
         final OkHttpClient client = new OkHttpClient();
         sharedPreferences = getContext().getSharedPreferences("WishListAppSettings", Context.MODE_PRIVATE);
         token = sharedPreferences.getString("token", "token is missing");
-        SwipeLayout swipeLayout = (SwipeLayout) convertView.findViewById(R.id.swipe);
-        swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
+        swipeLayout = (SwipeLayout) convertView.findViewById(R.id.swipe);
+        swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
+        ViewTreeObserver.OnGlobalLayoutListener swipeGlobalLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (isOpenSwipeLayout) {
+                    // Opens the layout without animation
+                    swipeLayout.open(false);
+                }
+            }
+        };
+
+        swipeLayout.getViewTreeObserver().addOnGlobalLayoutListener(swipeGlobalLayoutListener);
 //        swipeLayout.addDrag(SwipeLayout.DragEdge.Left, convertView.findViewById(R.id.bottomwrapper1));
         swipeLayout.addDrag(SwipeLayout.DragEdge.Right, convertView.findViewById(R.id.bottomwrapper));
         swipeLayout.addSwipeListener(new SimpleSwipeListener() {
             @Override
-            public void onOpen(SwipeLayout layout) {
-                
+            public void onStartOpen(SwipeLayout layout) {
+                isOpenSwipeLayout = true;
             }
+
+            @Override
+            public void onStartClose(SwipeLayout layout) {
+                isOpenSwipeLayout = false;
+            }
+
         });
         swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
             @Override

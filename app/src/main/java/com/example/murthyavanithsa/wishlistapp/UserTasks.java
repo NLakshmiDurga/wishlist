@@ -136,7 +136,7 @@ public class UserTasks extends AppCompatActivity{
         mDrawerToggle = setupDrawerToggle();
         drawerLayout.addDrawerListener(mDrawerToggle);
         face = Typeface.createFromAsset(getAssets(), "font/Roboto-Light.ttf");
-        // Setup drawer view
+//      Setup drawer view
 //        drawerLayout.setDrawerListener(mDrawerToggle);
 
         View header = nvDrawer.inflateHeaderView(R.layout.navigation_drawer_header);
@@ -296,7 +296,7 @@ public class UserTasks extends AppCompatActivity{
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+        fragmentManager.beginTransaction().add(R.id.content_frame, fragment).commit();
 
         // Highlight the selected item has been done by NavigationView
         menuItem.setChecked(true);
@@ -346,4 +346,5 @@ public class UserTasks extends AppCompatActivity{
         intent.addCategory(Intent.CATEGORY_HOME);
         startActivity(intent);
     }
+
 }

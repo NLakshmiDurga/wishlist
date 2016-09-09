@@ -250,9 +250,7 @@ public class SignInActivity extends AppCompatActivity implements
     }
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
+        Intent intent = new Intent(SignInActivity.this,SignUp.class);
         startActivity(intent);
     }
 }
