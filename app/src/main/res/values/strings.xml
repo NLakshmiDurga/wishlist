@@ -6,7 +6,7 @@
     <string name="title_activity_user_items">UserItems</string>
     <string name="drawer_open">Open Drawer</string>
     <string name="drawer_close">Close Drawer</string>
-    <string name="server_client_id">1039967043535-8mh5bvi1dlvseb799jtr6d2des0260jk</string>
+    <string name="server_client_id">1039967043535-8mh5bvi1dlvseb799jtr6d2des0260jk.apps.googleusercontent.com</string>
     <string name="auth_code_fmt">Auth Code: %s</string>
     <string name="id_token_fmt">ID Token: %s</string>
     <string name="signed_in_fmt">Signed in as: %s</string>
