@@ -3,7 +3,6 @@
     package="com.example.murthyavanithsa.wishlistapp">
     <uses-sdk android:minSdkVersion="2.2"></uses-sdk>
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <application
