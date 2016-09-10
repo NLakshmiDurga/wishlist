@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.wishlist.murthyavanithsa.app.R;
+
 import static android.content.Context.MODE_PRIVATE;
 
 /**

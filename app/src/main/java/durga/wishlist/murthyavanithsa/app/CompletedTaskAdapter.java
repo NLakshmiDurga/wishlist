@@ -18,6 +18,7 @@ import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.wishlist.murthyavanithsa.app.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
