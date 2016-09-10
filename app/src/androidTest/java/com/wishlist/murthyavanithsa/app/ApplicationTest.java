@@ -1,4 +1,4 @@
-package com.example.murthyavanithsa.wishlistapp;
+package com.wishlist.murthyavanithsa.app;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

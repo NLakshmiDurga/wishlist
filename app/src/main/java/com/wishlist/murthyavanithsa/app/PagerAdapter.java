@@ -1,4 +1,4 @@
-package com.example.murthyavanithsa.wishlistapp;
+package com.wishlist.murthyavanithsa.app;
 
 /**
  * Created by durga on 5/7/16.

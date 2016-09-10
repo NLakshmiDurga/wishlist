@@ -1,4 +1,4 @@
-package com.example.murthyavanithsa.wishlistapp;
+package com.wishlist.murthyavanithsa.app;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
-import com.google.android.gms.plus.model.people.Person;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
